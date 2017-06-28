@@ -1,28 +1,35 @@
+import java.security.GeneralSecurityException;
+import java.util.Random;
+
 public class Mapa implements InterfaceJogada {
 
-	protected String nome;
-	protected Jogador jogador1;
-	protected Jogador jogador2;
-	protected Torre trincheira;
-	protected Torre base;
-	protected int turno;
+	protected Torre[] trincheira;
+	protected boolean turno;
 	protected String imagemMapa;
 	protected int width;
 	protected int heigt;
 	protected int tempoTurno;
-	protected Carta deck;
+	protected Carta[] cartasDoJogo;
+	protected Jogador jogador1, jogador2;
 
-	/**
-	 * 
-	 * @param procedimento
-	 */
+	public Mapa() {
+		this.trincheira = new Torre[3];
+		this.imagemMapa = "";
+		this.width = 5;
+		this.heigt = 10;
+		cartasDoJogo = new Carta[8];
+		criaDeckCartasDoJogo();
+		
+	}
 	public void setTempoTurno(int procedimento) {
-		this.tempoTurno = procedimento;
+		if(procedimento == 0)
+			this.tempoTurno = 10; // 10 segundos
+		else
+			this.tempoTurno = 20; // 20 segundos
 	}
 
 	public int getTempo() {
-		// TODO - implement Mapa.getTempo
-		throw new UnsupportedOperationException();
+		return this.tempoTurno;
 	}
 
 	/**
@@ -91,13 +98,21 @@ public class Mapa implements InterfaceJogada {
 	 * @param idJogador
 	 */
 	public void criarJogador(String idJogador) {
-		// TODO - implement Mapa.criarJogador
-		throw new UnsupportedOperationException();
+		jogador2 = new Jogador();
+		jogador2.iniciar(idJogador);
 	}
 
 	public void jogadorTurnoInicial() {
-		// TODO - implement Mapa.jogadorTurnoInicial
-		throw new UnsupportedOperationException();
+		Random gerador = new Random();
+		int vez = gerador.nextInt(2);
+		
+		if(vez == 0) {
+			jogador1.setDaVez(true);
+			jogador2.setDaVez(false);
+		} else {
+			jogador2.setDaVez(true);
+			jogador1.setDaVez(false);
+		}
 	}
 
 	public boolean encerrarTurno() {
@@ -108,6 +123,23 @@ public class Mapa implements InterfaceJogada {
 	@Override
 	public void enviaJogada(Jogada jogada) {
 		// TODO Auto-generated method stub
+		
+	}
+	public void iniciar() {
+		setJogador1();
+		//this.jogador1 = gerenciador.getUsuario ver com vinicius o que é isso
+		jogador1 = new Jogador();
+		
+	}
+	public void criaDeckCartasDoJogo() {
+		cartasDoJogo[0] = new Carta(9, 1, "Defesa Alta", 0, "", 20, 0);
+		cartasDoJogo[1] = new Carta(5, 1, "Defesa Baixa", 1, "", 5, 6);
+		cartasDoJogo[2] = new Carta(4, 0, "Defesa Media", 2, "", 10, 0);
+		cartasDoJogo[3] = new Carta(3, 0, "Defesa Baixa", 3, "", 5, 0);
+		cartasDoJogo[4] = new Carta(3, 0, "Ataque Medio", 4, "", 0, 6);
+		cartasDoJogo[5] = new Carta(4, 0, "Ataque Medio/Alto", 5, "", 0, 8);
+		cartasDoJogo[6] = new Carta(6, 1, "Ataque Alto", 6, "", 0, 10);
+		cartasDoJogo[7] = new Carta(9, 1, "Ataque Extremo", 7, "", 0, 20);
 		
 	}
 

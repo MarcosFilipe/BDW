@@ -8,14 +8,21 @@ public class Jogador implements InterfaceJogada {
 	protected int id;
 	protected Carta deck;
 	protected boolean turno;
+	protected TimerTurno timer;
+	protected boolean turnoEncerrado;
+	
 
 	/**
 	 * 
 	 * @param procedimento
 	 */
-	public int procedimentoDeLance(int procedimento) {
-		// TODO - implement Jogador.procedimentoDeLance
-		throw new UnsupportedOperationException();
+	public void procedimentoDeLance(int procedimento, AtorJogador atorJogador) {
+		timer = new TimerTurno(procedimento, this);
+		timer.start();
+		atorJogador.encerrarTurno.setEnable(true);
+		atorJogador.sair.setEnable(true);
+				
+		
 	}
 
 	/**
@@ -27,9 +34,12 @@ public class Jogador implements InterfaceJogada {
 		throw new UnsupportedOperationException();
 	}
 
-	public void setDaVez() {
-		// TODO - implement Jogador.setDaVez
-		throw new UnsupportedOperationException();
+	public void setDaVez(boolean daVez) {
+		this.daVez = daVez;
+	}
+	
+	public void setTurnoEncerrado(boolean encerrado) {
+		this.turnoEncerrado = encerrado;
 	}
 
 	public boolean informarDaVez() {
@@ -44,6 +54,11 @@ public class Jogador implements InterfaceJogada {
 
 	@Override
 	public void enviaJogada(Jogada jogada) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void iniciar(String idJogador) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -3,6 +3,8 @@ public class AtorJogador {
 	protected Mapa mapa;
 	protected AtorNetGames rede;
 	protected String idUsuario;
+	public JButton encerrarTurno;
+	public JButton sair;
 
 	/**
 	 * 
@@ -19,8 +21,12 @@ public class AtorJogador {
 	}
 
 	public void iniciarNovaPartida() {
-		// TODO - implement AtorJogador.iniciarNovaPartida
-		throw new UnsupportedOperationException();
+		this.mapa = new Mapa();
+		mapa.iniciar();
+		idUsuario = rede.informarIdUsuario();
+		mapa.criarJogador(idUsuario);
+		mapa.jogadorTurnoInicial();
+		exibirEstado();
 	}
 
 	public void exibirEstado() {
@@ -42,6 +48,7 @@ public class AtorJogador {
 		// TODO - implement AtorJogador.encerrarTurno
 		throw new UnsupportedOperationException();
 	}
+	
 
 	/**
 	 * 

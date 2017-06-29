@@ -8,7 +8,7 @@ public class Jogador implements InterfaceJogada {
 	protected int id;
 	protected Carta deck;
 	protected boolean turno;
-	
+	protected int antimateria;
 
 	/**
 	 * 
@@ -48,6 +48,10 @@ public class Jogador implements InterfaceJogada {
 	public void iniciar(String idJogador) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public int getAntimateria() {
+		return this.antimateria;
 	}
 
 }

@@ -13,22 +13,29 @@ public class Mapa implements InterfaceJogada {
 	protected Jogador jogador1, jogador2;
 	protected TimerTurno timer;
 	protected boolean turnoEncerrado;
+	protected Object tabuleiro[][];
+	protected int numCartasEmJogo;
+	protected Carta[] cartasDaMao;
 
 	public Mapa() {
 		this.trincheira = new Torre[3];
 		this.imagemMapa = "";
 		this.width = 5;
 		this.heigt = 10;
+		this.numCartasEmJogo = 0;
 		cartasDoJogo = new Carta[8];
 		criaDeckCartasDoJogo();
+		this.tabuleiro = new Object[width][heigt];
 		
 	}
 	
 	public void procedimentoDeLance(int procedimento, AtorJogador atorJogador) {
+		turnoEncerrado = false;
 		timer = new TimerTurno(procedimento, this);
 		timer.start();
 		atorJogador.encerrarTurno.setEnable(true);
 		atorJogador.sair.setEnable(true);
+		
 				
 	}
 	
@@ -56,9 +63,14 @@ public class Mapa implements InterfaceJogada {
 	 * 
 	 * @param cartaSelecionada
 	 */
-	public void verificaAntimateria(Carta cartaSelecionada) {
-		// TODO - implement Mapa.verificaAntimateria
-		throw new UnsupportedOperationException();
+	public boolean verificaAntimateria(Carta cartaSelecionada) {
+		int antimateriaJogador = jogador1.getAntimateria();
+		int antimateriaCarta = cartaSelecionada.getAntimateria();
+		
+		if(antimateriaJogador >= antimateriaCarta)
+			return true;
+		else 
+			return false;
 	}
 	
 	public void setTurnoEncerrado(boolean encerrado) {
@@ -67,13 +79,53 @@ public class Mapa implements InterfaceJogada {
 
 	/**
 	 * 
-	 * @param cartaSelecionada
+	 * @param idCartaSelecionada
 	 * @param posiEscolhida
 	 */
-	public void invocarCarta(Carta cartaSelecionada, Posicao posiEscolhida) {
-		// TODO - implement Mapa.invocarCarta
-		throw new UnsupportedOperationException();
+	public void invocarCarta(int idCartaSelecionada) {
+		if (this.turno == true) {
+			Carta carta = getCartaDeck(idCartaSelecionada);
+			
+			if (verificaAntimateria(carta)) {
+				if(numCartasEmJogo < 5) {
+					addCartaCampo(carta);
+				}
+			}
+		}
 	}
+	
+	private void addCartaMao() {
+		/* ta zoado. Refazer amanha. são 01:35 to caindo de sono. fui
+		 * if (cartasDaMao.length < 4) {
+			 boolean naoExiste = false;
+			 int idCarta = 0;
+			while(naoExiste == false) {
+				
+				Random gerador = new Random();
+				int index = gerador.nextInt(8);
+				for (int i = 0; i < cartasDaMao.length; i++)
+					if(cartasDaMao[i].getId() == index) {
+						naoExiste = true;
+						break;
+					}
+			}
+		}*/
+	}
+	
+	private void removerCartaMao(int idCarta) {
+		for (int i = 0; i < cartasDaMao.length; i++) {
+			if(cartasDaMao[i].getId() == idCarta)
+				cartasDaMao[i] = null;
+		}
+	}
+	
+	private void addCartaCampo(Carta carta) {
+		this.numCartasEmJogo++;
+		int posicao = numCartasEmJogo - 1;
+		this.tabuleiro[9][posicao] = carta;
+		removerCartaMao(carta.getId());
+	}
+	
 
 	/**
 	 * 
@@ -93,6 +145,8 @@ public class Mapa implements InterfaceJogada {
 		// TODO - implement Mapa.operation
 		throw new UnsupportedOperationException();
 	}
+	
+	
 
 	/**
 	 * 

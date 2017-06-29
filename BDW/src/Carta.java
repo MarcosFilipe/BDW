@@ -17,4 +17,36 @@ public class Carta {
 		this.defesa = defesa;
 		this.ataque = ataque;
 	}
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+
+	public int getAntimateria() {
+		return antimateria;
+	}
+
+	public int getTipo() {
+		return tipo;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public int getDefesa() {
+		return defesa;
+	}
+
+	public int getAtaque() {
+		return ataque;
+	}
 }

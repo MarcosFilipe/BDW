@@ -1,15 +1,15 @@
 
 public class TimerTurno extends Thread{
 	protected int tempo;
-	protected Jogador jogador;
+	protected Mapa mapa;
 	
-	public TimerTurno(int procedimento, Jogador jogador) {
+	public TimerTurno(int procedimento, Mapa mapa) {
 		if(procedimento == 1)
 			this.tempo = 20;
 		else 
 			this.tempo = 10;
 		
-		this.jogador = jogador;
+		this.mapa = mapa;
 	}
 	
 	@Override
@@ -26,7 +26,7 @@ public class TimerTurno extends Thread{
 			cont--;
 		}
 		
-		jogador.setTurnoEncerrado(true);
+		mapa.setTurnoEncerrado(true);
 		
 		
 	}

@@ -11,6 +11,8 @@ public class Mapa implements InterfaceJogada {
 	protected int tempoTurno;
 	protected Carta[] cartasDoJogo;
 	protected Jogador jogador1, jogador2;
+	protected TimerTurno timer;
+	protected boolean turnoEncerrado;
 
 	public Mapa() {
 		this.trincheira = new Torre[3];
@@ -21,6 +23,15 @@ public class Mapa implements InterfaceJogada {
 		criaDeckCartasDoJogo();
 		
 	}
+	
+	public void procedimentoDeLance(int procedimento, AtorJogador atorJogador) {
+		timer = new TimerTurno(procedimento, this);
+		timer.start();
+		atorJogador.encerrarTurno.setEnable(true);
+		atorJogador.sair.setEnable(true);
+				
+	}
+	
 	public void setTempoTurno(int procedimento) {
 		if(procedimento == 0)
 			this.tempoTurno = 10; // 10 segundos
@@ -48,6 +59,10 @@ public class Mapa implements InterfaceJogada {
 	public void verificaAntimateria(Carta cartaSelecionada) {
 		// TODO - implement Mapa.verificaAntimateria
 		throw new UnsupportedOperationException();
+	}
+	
+	public void setTurnoEncerrado(boolean encerrado) {
+		this.turnoEncerrado = encerrado;
 	}
 
 	/**
@@ -113,6 +128,10 @@ public class Mapa implements InterfaceJogada {
 			jogador2.setDaVez(true);
 			jogador1.setDaVez(false);
 		}
+	}
+	
+	public Carta getCartaDeck(int id) {
+		return cartasDoJogo[id];
 	}
 
 	public boolean encerrarTurno() {

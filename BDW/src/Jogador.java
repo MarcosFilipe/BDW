@@ -1,17 +1,23 @@
 public class Jogador implements InterfaceJogada {
 
-	protected int ptosdevida;
 	protected int antimateria;
 	protected boolean vencedor;
 	protected boolean daVez;
-	protected Carta attribute;
 	protected String nome;
 	protected int id;
-	protected Carta deck;
-	protected boolean turno;
+	/*
+	 * deck contem o id das 4 cartas possiveis para jogada
+	 * facilita na habilitacao e desabilitacao das cartas de ataque
+	 */
+	protected int[] deck;
 	protected TimerTurno timer;
-	protected boolean turnoEncerrado;
 	
+	public Jogador(String nome){
+		this.nome = nome;
+		this.antimateria = 10;
+		this.vencedor = false;
+		this.daVez = false;
+	}
 
 	/**
 	 * 
@@ -32,23 +38,6 @@ public class Jogador implements InterfaceJogada {
 	 */
 	public boolean verificaTempoSeExcedeu(int tempoAtualTurno) {
 		// TODO - implement Jogador.verificaTempoSeExcedeu
-		throw new UnsupportedOperationException();
-	}
-
-	public void setDaVez(boolean daVez) {
-		this.daVez = daVez;
-	}
-	
-	public boolean getDaVez(){
-		return this.daVez;
-	}
-	
-	public void setTurnoEncerrado(boolean encerrado) {
-		this.turnoEncerrado = encerrado;
-	}
-
-	public boolean informarDaVez() {
-		// TODO - implement Jogador.informarDaVez
 		throw new UnsupportedOperationException();
 	}
 
@@ -77,6 +66,38 @@ public class Jogador implements InterfaceJogada {
 	
 	public void decrementarAntimateria(int antimateriaDecremento){
 		this.antimateria -= antimateriaDecremento;
+	}
+	
+	public int getAntimateria() {
+		return antimateria;
+	}
+
+	public void setAntimateria(int antimateria) {
+		this.antimateria = antimateria;
+	}
+
+	public void setVencedor(boolean vencedor) {
+		this.vencedor = vencedor;
+	}
+	
+	public boolean getVencedor() {
+		return vencedor;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setDaVez(boolean daVez) {
+		this.daVez = daVez;
+	}
+	
+	public boolean getDaVez(){
+		return this.daVez;
 	}
 
 }

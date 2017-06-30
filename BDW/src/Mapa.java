@@ -5,6 +5,7 @@ public class Mapa implements InterfaceJogada {
 
 	protected Torre[] trincheira;
 	protected boolean turno;
+	protected Jogada jogadaRecebida;
 	protected String imagemMapa;
 	protected int width;
 	protected int heigt;
@@ -84,8 +85,11 @@ public class Mapa implements InterfaceJogada {
 	 * @param jogada
 	 */
 	public void receberJogada(Jogada jogada) {
-		// TODO - implement Mapa.receberJogada
-		throw new UnsupportedOperationException();
+		this.jogadaRecebida = jogada;
+		int tipoJogada = jogadaRecebida.getTipoJogada();
+		if(tipoJogada == 1){
+			jogador1.setDaVez(true);
+		}
 	}
 
 	public void setJogador1() {

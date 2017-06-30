@@ -7,6 +7,7 @@ public class Carta {
 	protected String img;
 	protected int defesa;
 	protected int ataque;
+	protected boolean habilitado;
 	
 	public Carta(int antimateria, int tipo, String nome, int id, String img, int defesa, int ataque) {
 		this.antimateria = antimateria;
@@ -16,6 +17,7 @@ public class Carta {
 		this.img = img;
 		this.defesa = defesa;
 		this.ataque = ataque;
+		this.habilitado = true;
 	}
 
 	public String getImg() {
@@ -48,5 +50,13 @@ public class Carta {
 
 	public int getAtaque() {
 		return ataque;
+	}
+	
+	public void setHabilitado(boolean habilitado){
+		this.habilitado = habilitado;
+	}
+	
+	public boolean getHabilitado(){
+		return habilitado;
 	}
 }

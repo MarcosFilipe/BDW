@@ -3,14 +3,14 @@ import java.util.Random;
 
 public class Mapa implements InterfaceJogada {
 
-	protected Torre[] trincheira;
+	protected Torre[] trincheira, trincheiraAdversario;
 	protected boolean turno;
 	protected String imagemMapa;
 	protected int width;
 	protected int heigt;
 	protected int tempoTurno;
 	protected Carta[] cartasDoJogo;
-	protected Jogador jogador1, jogador2;
+	protected Jogador jogador, jogadorAdversario;
 	protected TimerTurno timer;
 	protected boolean turnoEncerrado;
 	protected Object tabuleiro[][];
@@ -20,6 +20,7 @@ public class Mapa implements InterfaceJogada {
 
 	public Mapa() {
 		this.trincheira = new Torre[3];
+		this.trincheiraAdversario = new Torre[3];
 		this.imagemMapa = "";
 		this.width = 5;
 		this.heigt = 10;
@@ -65,7 +66,7 @@ public class Mapa implements InterfaceJogada {
 	 * @param cartaSelecionada
 	 */
 	public boolean verificaAntimateria(Carta cartaSelecionada) {
-		int antimateriaJogador = jogador1.getAntimateria();
+		int antimateriaJogador = jogador.getAntimateria();
 		int antimateriaCarta = cartaSelecionada.getAntimateria();
 		
 		if(antimateriaJogador >= antimateriaCarta)
@@ -157,7 +158,7 @@ public class Mapa implements InterfaceJogada {
 		this.jogadaRecebida = jogada;
 		int tipoJogada = jogadaRecebida.getTipoJogada();
 		if(tipoJogada == 1){
-			jogador1.setDaVez(true);
+			jogador.setDaVez(true);
 		}
  	}
 		 	
@@ -167,13 +168,21 @@ public class Mapa implements InterfaceJogada {
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param idJogador
+	/*
+	 * verificar a necessidade de id
 	 */
-	public void criarJogador(String idJogador) {
-		jogador2 = new Jogador("nome");
-		jogador2.iniciar(idJogador);
+	public void criaJogador(String nome) {
+		jogador = new Jogador(nome);
+		for(int i = 0; i < 3; i++){
+			trincheira[i] = new Torre(jogador.getId());
+		}
+	}
+	
+	public void criarJogadorAdversario(Jogador jogadorAdversario) {
+		this.jogadorAdversario = jogadorAdversario;
+		for(int i = 0; i < 3; i++){
+			trincheiraAdversario[i] = new Torre(this.jogadorAdversario.getId());
+		}
 	}
 
 	public void jogadorTurnoInicial() {
@@ -181,11 +190,11 @@ public class Mapa implements InterfaceJogada {
 		int vez = gerador.nextInt(2);
 		
 		if(vez == 0) {
-			jogador1.setDaVez(true);
-			jogador2.setDaVez(false);
+			jogador.setDaVez(true);
+			jogadorAdversario.setDaVez(false);
 		} else {
-			jogador2.setDaVez(true);
-			jogador1.setDaVez(false);
+			jogadorAdversario.setDaVez(true);
+			jogador.setDaVez(false);
 		}
 	}
 	
@@ -194,38 +203,31 @@ public class Mapa implements InterfaceJogada {
 	}
 
 	public void encerrarTurno(int procedimento, int numJogadas) {
-				if(procedimento == 1){
-					jogador1.setDaVez(false);
-				}else{
-					boolean vencedor = calcularDano();
-					if(!vencedor){
-						this.habilitarCarta();
-						if(numJogadas == 0){
-							jogador1.decrementarAntimateria(1);
-						}
-					}
+		if(procedimento == 1){
+			jogador.setDaVez(false);
+		}else{
+			boolean vencedor = calcularDano();
+			if(!vencedor){
+				this.habilitarCarta();
+				if(numJogadas == 0){
+					jogador.decrementarAntimateria(1);
 				}
 			}
-			/************************************************/
-			public boolean calcularDano(){
-				return false;
-			}
-			/**********************************************/
-			public boolean definirVencedor(){
-				return false;
-			}
+		}
+	}
+		
+	public boolean calcularDano(){
+		return false;
+	}
+		
+	public boolean definirVencedor(){
+		return false;
+	}
 		 	
 
 	@Override
 	public void enviaJogada(Jogada jogada) {
 		// TODO Auto-generated method stub
-		
-	}
-	
-	public void iniciar() {
-		setJogador1();
-		//this.jogador1 = gerenciador.getUsuario ver com vinicius o que é isso
-		jogador1 = new Jogador("nome");
 		
 	}
 	
@@ -241,21 +243,20 @@ public class Mapa implements InterfaceJogada {
 		
 	}
 	
-	/*********************************************/
 	public void iniciarTurno(int procedimento){
-		boolean daVez = jogador1.getDaVez();
+		boolean daVez = jogador.getDaVez();
 		if(daVez){
 			if(procedimento == 1){
-				jogador1.adicionarAntimateria(2);
+				jogador.adicionarAntimateria(2);
 				//definir tempo de turno
 			}else{
-				jogador1.adicionarAntimateria(1);
+				jogador.adicionarAntimateria(1);
 				//definir tempo de turno
 				this.desabilitarCarta();
 			}
 		}
 	}
-	/****************************************/
+	
 	public void desabilitarCarta(){
 		for(int i = 0; i < cartasDoJogo.length; i++){
 			int defesa = cartasDoJogo[i].getDefesa();
@@ -265,7 +266,6 @@ public class Mapa implements InterfaceJogada {
 		}
 	}
 	
-	/*****************************************/
 	public void habilitarCarta(){
 		for(int i = 0; i < cartasDoJogo.length; i++){
 			int defesa = cartasDoJogo[i].getDefesa();

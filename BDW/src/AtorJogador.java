@@ -22,9 +22,8 @@ public class AtorJogador {
 
 	public void iniciarNovaPartida() {
 		this.mapa = new Mapa();
-		mapa.iniciar();
-		idUsuario = rede.informarIdUsuario();
-		mapa.criarJogador(idUsuario);
+		mapa.criaJogador("nome");
+		mapa.criarJogadorAdversario(rede.informarAdversario());
 		mapa.jogadorTurnoInicial();
 		exibirEstado();
 	}

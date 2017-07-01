@@ -17,7 +17,7 @@ public class AtorNetGames implements ListnerProxy {
 		throw new UnsupportedOperationException();
 	}
 
-	public String informarIdUsuario() {
+	public Jogador informarAdversario() {
 		// TODO - implement AtorNetGames.informarIdUsuario
 		throw new UnsupportedOperationException();
 	}

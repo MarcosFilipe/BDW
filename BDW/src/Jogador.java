@@ -28,16 +28,6 @@ public class Jogador implements InterfaceJogada {
 		throw new UnsupportedOperationException();
 	}
 
-	public void setDaVez(boolean daVez) {
-		this.daVez = daVez;
-	}
-	
-
-	public boolean informarDaVez() {
-		// TODO - implement Jogador.informarDaVez
-		throw new UnsupportedOperationException();
-	}
-
 	public void operation() {
 		// TODO - implement Jogador.operation
 		throw new UnsupportedOperationException();
@@ -47,15 +37,6 @@ public class Jogador implements InterfaceJogada {
 	public void enviaJogada(Jogada jogada) {
 		// TODO Auto-generated method stub
 		
-	}
-
-	public void iniciar(String idJogador) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	public int getAntimateria() {
-		return this.antimateria;
 	}
 	
 	public void adicionarAntimateria(int antimateriaAdicao){
@@ -70,28 +51,35 @@ public class Jogador implements InterfaceJogada {
 	}
 	
 	public void setAntimateria(int antimateria) {
-				this.antimateria = antimateria;
-			}
+		this.antimateria = antimateria;
+	}
+	
+	public int getAntimateria() {
+		return this.antimateria;
+	}
 		
-			public void setVencedor(boolean vencedor) {
-				this.vencedor = vencedor;
-			}
+	public void setVencedor(boolean vencedor) {
+		this.vencedor = vencedor;
+	}
 			
-			public boolean getVencedor() {
-				return vencedor;
-			}
+	public boolean getVencedor() {
+		return vencedor;
+	}
 		
-			public String getNome() {
-				return nome;
-			}
+	public String getNome() {
+		return nome;
+	}
 		
-			public int getId() {
-				return id;
-			}
+	public int getId() {
+		return id;
+	}
+	
+	public void setDaVez(boolean daVez) {
+		this.daVez = daVez;
+	}
 			
-			public boolean getDaVez(){
-				return this.daVez;
-		 	}
-		 	
+	public boolean getDaVez(){
+		return this.daVez;
+	}	 	
 
 }

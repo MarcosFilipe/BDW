@@ -1,3 +1,5 @@
+import javax.swing.JButton;
+
 public class AtorJogador {
 
 	protected Mapa mapa;

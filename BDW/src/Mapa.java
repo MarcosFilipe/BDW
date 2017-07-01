@@ -1,4 +1,3 @@
-import java.security.GeneralSecurityException;
 import java.util.Random;
 
 public class Mapa implements InterfaceJogada {
@@ -39,8 +38,8 @@ public class Mapa implements InterfaceJogada {
 		turnoEncerrado = false;
 		timer = new TimerTurno(procedimento, this);
 		timer.start();
-		atorJogador.encerrarTurno.setEnable(true);
-		atorJogador.sair.setEnable(true);
+		atorJogador.encerrarTurno.setEnabled(true);
+		atorJogador.sair.setEnabled(true);
 		
 		boolean encerrar = false;
 		while(encerrar == false)

@@ -16,6 +16,7 @@ public class Mapa implements InterfaceJogada {
 	protected Object tabuleiro[][];
 	protected int numCartasEmJogo;
 	protected Carta[] cartasDaMao;
+	protected Jogada jogadaRecebida;
 
 	public Mapa() {
 		this.trincheira = new Torre[3];
@@ -153,9 +154,13 @@ public class Mapa implements InterfaceJogada {
 	 * @param jogada
 	 */
 	public void receberJogada(Jogada jogada) {
-		// TODO - implement Mapa.receberJogada
-		throw new UnsupportedOperationException();
-	}
+		this.jogadaRecebida = jogada;
+		int tipoJogada = jogadaRecebida.getTipoJogada();
+		if(tipoJogada == 1){
+			jogador1.setDaVez(true);
+		}
+ 	}
+		 	
 
 	public void setJogador1() {
 		// TODO - implement Mapa.setJogador1
@@ -167,7 +172,7 @@ public class Mapa implements InterfaceJogada {
 	 * @param idJogador
 	 */
 	public void criarJogador(String idJogador) {
-		jogador2 = new Jogador();
+		jogador2 = new Jogador("nome");
 		jogador2.iniciar(idJogador);
 	}
 
@@ -188,22 +193,42 @@ public class Mapa implements InterfaceJogada {
 		return cartasDoJogo[id];
 	}
 
-	public boolean encerrarTurno() {
-		// TODO - implement Mapa.encerrarTurno
-		throw new UnsupportedOperationException();
-	}
+	public void encerrarTurno(int procedimento, int numJogadas) {
+				if(procedimento == 1){
+					jogador1.setDaVez(false);
+				}else{
+					boolean vencedor = calcularDano();
+					if(!vencedor){
+						this.habilitarCarta();
+						if(numJogadas == 0){
+							jogador1.decrementarAntimateria(1);
+						}
+					}
+				}
+			}
+			/************************************************/
+			public boolean calcularDano(){
+				return false;
+			}
+			/**********************************************/
+			public boolean definirVencedor(){
+				return false;
+			}
+		 	
 
 	@Override
 	public void enviaJogada(Jogada jogada) {
 		// TODO Auto-generated method stub
 		
 	}
+	
 	public void iniciar() {
 		setJogador1();
 		//this.jogador1 = gerenciador.getUsuario ver com vinicius o que é isso
-		jogador1 = new Jogador();
+		jogador1 = new Jogador("nome");
 		
 	}
+	
 	public void criaDeckCartasDoJogo() {
 		cartasDoJogo[0] = new Carta(9, 1, "Defesa Alta", 0, "", 20, 0);
 		cartasDoJogo[1] = new Carta(5, 1, "Defesa Baixa", 1, "", 5, 6);
@@ -215,5 +240,40 @@ public class Mapa implements InterfaceJogada {
 		cartasDoJogo[7] = new Carta(9, 1, "Ataque Extremo", 7, "", 0, 20);
 		
 	}
+	
+	/*********************************************/
+	public void iniciarTurno(int procedimento){
+		boolean daVez = jogador1.getDaVez();
+		if(daVez){
+			if(procedimento == 1){
+				jogador1.adicionarAntimateria(2);
+				//definir tempo de turno
+			}else{
+				jogador1.adicionarAntimateria(1);
+				//definir tempo de turno
+				this.desabilitarCarta();
+			}
+		}
+	}
+	/****************************************/
+	public void desabilitarCarta(){
+		for(int i = 0; i < cartasDoJogo.length; i++){
+			int defesa = cartasDoJogo[i].getDefesa();
+			if(defesa == 0){
+				cartasDoJogo[i].setHabilitado(false);
+			}
+		}
+	}
+	
+	/*****************************************/
+	public void habilitarCarta(){
+		for(int i = 0; i < cartasDoJogo.length; i++){
+			int defesa = cartasDoJogo[i].getDefesa();
+			if(defesa == 0){
+				cartasDoJogo[i].setHabilitado(true);
+			}
+		}
+	}
+	
 
 }

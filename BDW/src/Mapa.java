@@ -15,8 +15,10 @@ public class Mapa implements InterfaceJogada {
 	protected boolean turnoEncerrado;
 	protected Object tabuleiro[][];
 	protected int numCartasEmJogo;
-	protected Carta[] cartasDaMao;
 	protected Jogada jogadaRecebida;
+	private Integer integer;
+	protected int numJogadas;
+	
 
 	public Mapa() {
 		this.trincheira = new Torre[3];
@@ -32,11 +34,19 @@ public class Mapa implements InterfaceJogada {
 	}
 	
 	public void procedimentoDeLance(int procedimento, AtorJogador atorJogador) {
+		numJogadas = 0;
+		iniciarTurno(procedimento);
 		turnoEncerrado = false;
 		timer = new TimerTurno(procedimento, this);
 		timer.start();
 		atorJogador.encerrarTurno.setEnable(true);
 		atorJogador.sair.setEnable(true);
+		
+		boolean encerrar = false;
+		while(encerrar == false)
+			if(turnoEncerrado) {
+				encerrarTurno(procedimento, numJogadas);
+			}
 		
 				
 	}
@@ -85,46 +95,58 @@ public class Mapa implements InterfaceJogada {
 	 * @param posiEscolhida
 	 */
 	public void invocarCarta(int idCartaSelecionada) {
-		if (this.turno == true) {
-			Carta carta = getCartaDeck(idCartaSelecionada);
+		
+			if(jogador.daVez) {
+				Carta carta = getCartaDeck(idCartaSelecionada);
+				if (!carta.getHabilitado()) {
+					//alerta falha
+				} else
+					if (verificaAntimateria(carta)) {
+						if(jogador.cartasEmJogo.length < 5) {
+							addCartaCampo(carta);
+							jogador.decrementarAntimateria(carta.getAntimateria());
+							numJogadas++;
+						}
+					}
+			}	
+	}
 			
-			if (verificaAntimateria(carta)) {
-				if(numCartasEmJogo < 5) {
-					addCartaCampo(carta);
-				}
+	
+	private void addNovaCartaMao() {
+		  if (jogador.deck.length < 4) {
+			 boolean existe = true;
+			 int index = 0;
+			 
+			while(existe == true) {
+				existe = false;
+				Random gerador = new Random();
+				 index = gerador.nextInt(8);
+				
+				for (int i = 0; i < jogador.deck.length; i++)
+					if(jogador.deck[i] == index) {
+						existe = true;
+					}
 			}
+			int posicao = jogador.deck.length;
+			jogador.deck[posicao] = index;
 		}
 	}
 	
-	private void addCartaMao() {
-		/* ta zoado. Refazer amanha. são 01:35 to caindo de sono. fui
-		 * if (cartasDaMao.length < 4) {
-			 boolean naoExiste = false;
-			 int idCarta = 0;
-			while(naoExiste == false) {
-				
-				Random gerador = new Random();
-				int index = gerador.nextInt(8);
-				for (int i = 0; i < cartasDaMao.length; i++)
-					if(cartasDaMao[i].getId() == index) {
-						naoExiste = true;
-						break;
-					}
-			}
-		}*/
-	}
-	
 	private void removerCartaMao(int idCarta) {
-		for (int i = 0; i < cartasDaMao.length; i++) {
-			if(cartasDaMao[i].getId() == idCarta)
-				cartasDaMao[i] = null;
+		for (int i = 0; i < jogador.deck.length; i++) {
+			if(jogador.deck[i] == idCarta) {
+				integer = (Integer) null;
+				jogador.deck[i] = integer;
+				
+				addNovaCartaMao();
+				
+			}
 		}
 	}
 	
 	private void addCartaCampo(Carta carta) {
-		this.numCartasEmJogo++;
-		int posicao = numCartasEmJogo - 1;
-		this.tabuleiro[9][posicao] = carta;
+		int posicao = jogador.cartasEmJogo.length;
+		jogador.addCartaCampo(posicao, carta);
 		removerCartaMao(carta.getId());
 	}
 	
@@ -233,7 +255,7 @@ public class Mapa implements InterfaceJogada {
 	
 	public void criaDeckCartasDoJogo() {
 		cartasDoJogo[0] = new Carta(9, 1, "Defesa Alta", 0, "", 20, 0);
-		cartasDoJogo[1] = new Carta(5, 1, "Defesa Baixa", 1, "", 5, 6);
+		cartasDoJogo[1] = new Carta(6, 1, "Defesa Media/Alta", 1, "", 15, 0);
 		cartasDoJogo[2] = new Carta(4, 0, "Defesa Media", 2, "", 10, 0);
 		cartasDoJogo[3] = new Carta(3, 0, "Defesa Baixa", 3, "", 5, 0);
 		cartasDoJogo[4] = new Carta(3, 0, "Ataque Medio", 4, "", 0, 6);

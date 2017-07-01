@@ -10,6 +10,7 @@ public class Jogador implements InterfaceJogada {
 	 * facilita na habilitacao e desabilitacao das cartas de ataque
 	 */
 	protected int[] deck;
+	protected Carta[] cartasEmJogo;
 	protected TimerTurno timer;
 	
 	public Jogador(String nome){
@@ -23,15 +24,7 @@ public class Jogador implements InterfaceJogada {
 	 * 
 	 * @param tempoAtualTurno
 	 */
-	public boolean verificaTempoSeExcedeu(int tempoAtualTurno) {
-		// TODO - implement Jogador.verificaTempoSeExcedeu
-		throw new UnsupportedOperationException();
-	}
-
-	public void operation() {
-		// TODO - implement Jogador.operation
-		throw new UnsupportedOperationException();
-	}
+	
 
 	@Override
 	public void enviaJogada(Jogada jogada) {
@@ -80,6 +73,14 @@ public class Jogador implements InterfaceJogada {
 			
 	public boolean getDaVez(){
 		return this.daVez;
-	}	 	
+	}	 
+	
+	public Carta getCartaDoCampo(int posicao) {
+		return this.cartasEmJogo[posicao];
+	}
+	
+	public void addCartaCampo(int posicao, Carta carta) {
+		this.cartasEmJogo[posicao] = carta;
+	}
 
 }

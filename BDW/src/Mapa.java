@@ -277,21 +277,11 @@ public class Mapa implements InterfaceJogada {
 	}
 	
 	public void desabilitarCarta(){
-		for(int i = 0; i < cartasDoJogo.length; i++){
-			int defesa = cartasDoJogo[i].getDefesa();
-			if(defesa == 0){
-				cartasDoJogo[i].setHabilitado(false);
-			}
-		}
+		
 	}
 	
 	public void habilitarCarta(){
-		for(int i = 0; i < cartasDoJogo.length; i++){
-			int defesa = cartasDoJogo[i].getDefesa();
-			if(defesa == 0){
-				cartasDoJogo[i].setHabilitado(true);
-			}
-		}
+		
 	}
 	
 

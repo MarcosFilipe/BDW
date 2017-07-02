@@ -15,9 +15,10 @@ public class Mapa implements InterfaceJogada {
 	protected Object tabuleiro[][];
 	protected int numCartasEmJogo;
 	protected Jogada jogadaRecebida;
+	protected int numTurnos;
 	private Integer integer;
 	protected int numJogadas;
-	
+
 
 	public Mapa() {
 		this.trincheira = new Torre[3];
@@ -29,7 +30,7 @@ public class Mapa implements InterfaceJogada {
 		cartasDoJogo = new Carta[8];
 		criaDeckCartasDoJogo();
 		this.tabuleiro = new Object[width][heigt];
-		
+		this.numTurnos = 0;
 	}
 	
 	public void procedimentoDeLance(int procedimento, AtorJogador atorJogador) {
@@ -227,6 +228,7 @@ public class Mapa implements InterfaceJogada {
 		if(procedimento == 1){
 			jogador.setDaVez(false);
 		}else{
+			numTurnos++;
 			boolean vencedor = calcularDano();
 			if(!vencedor){
 				this.habilitarCarta();
@@ -237,12 +239,67 @@ public class Mapa implements InterfaceJogada {
 		}
 	}
 		
-	public boolean calcularDano(){
-		return false;
+	private boolean calcularDano(){
+		return definirVencedor();
 	}
 		
-	public boolean definirVencedor(){
+	private boolean definirVencedor(){
+		if(numTurnos == 20){
+			verificarVencedorTurnoLimite();
+			return true;
+		}else{
+			if(verificarVencedorTrincheirasDestruidas()){
+				return true;
+			}
+		}
 		return false;
+	}
+
+	private boolean verificarVencedorTrincheirasDestruidas() {
+		int numTrincheiras = 0;
+		int numTrincheirasAdiversario = 0;
+		for(int i = 0; i < trincheira.length; i++){
+			if(trincheira[i] != null){
+				numTrincheiras += 1;
+			}
+		}
+		if(numTrincheiras == 0){
+			jogadorAdversario.setVencedor(true);
+			return true;
+		}
+		
+		for(int i = 0; i < trincheiraAdversario.length; i++){
+			if(trincheiraAdversario[i] != null){
+				numTrincheirasAdiversario += 1;
+			}
+		}
+		if(numTrincheirasAdiversario == 0){
+			jogador.setVencedor(true);
+			return true;
+		}
+		return false;
+	}
+	
+	private void verificarVencedorTurnoLimite(){
+		int numTrincheiras = 0;
+		int numTrincheirasAdversario = 0;
+		for(int i = 0; i < trincheira.length; i++){
+			if(trincheira[i] != null){
+				numTrincheiras += 1;
+			}
+		}
+		for(int i = 0; i < trincheiraAdversario.length; i++){
+			if(trincheiraAdversario[i] != null){
+				numTrincheirasAdversario += 1;
+			}
+		}
+		if(numTrincheiras > numTrincheirasAdversario){
+			jogador.setVencedor(true);
+		}else{
+			if(numTrincheirasAdversario > numTrincheiras){
+				jogadorAdversario.setVencedor(true);
+			}
+		}
 	}
 		 	
 
@@ -278,7 +335,7 @@ public class Mapa implements InterfaceJogada {
 		}
 	}
 	
-	public void desabilitarCarta(){
+	private void desabilitarCarta(){
 		for(int i = 0; i < cartasDoJogo.length; i++){
 			int defesa = cartasDoJogo[i].getDefesa();
 			if(defesa == 0){
@@ -287,7 +344,7 @@ public class Mapa implements InterfaceJogada {
 		}
 	}
 	
-	public void habilitarCarta(){
+	private void habilitarCarta(){
 		for(int i = 0; i < cartasDoJogo.length; i++){
 			int defesa = cartasDoJogo[i].getDefesa();
 			if(defesa == 0){

@@ -15,7 +15,6 @@ public class Mapa implements InterfaceJogada {
 	protected Object tabuleiro[][];
 	protected int numCartasEmJogo;
 	protected Jogada jogadaRecebida;
-	private Integer integer;
 	protected int numJogadas;
 	
 
@@ -134,8 +133,7 @@ public class Mapa implements InterfaceJogada {
 	private void removerCartaMao(int idCarta) {
 		for (int i = 0; i < jogador.deck.length; i++) {
 			if(jogador.deck[i] == idCarta) {
-				integer = (Integer) null;
-				jogador.deck[i] = integer;
+				jogador.deck[i] = (Integer) null;
 				
 				addNovaCartaMao();
 				
@@ -253,14 +251,14 @@ public class Mapa implements InterfaceJogada {
 	}
 	
 	public void criaDeckCartasDoJogo() {
-		cartasDoJogo[0] = new Carta(9, 1, "Defesa Alta", 0, "", 20, 0);
-		cartasDoJogo[1] = new Carta(6, 1, "Defesa Media/Alta", 1, "", 15, 0);
-		cartasDoJogo[2] = new Carta(4, 0, "Defesa Media", 2, "", 10, 0);
-		cartasDoJogo[3] = new Carta(3, 0, "Defesa Baixa", 3, "", 5, 0);
-		cartasDoJogo[4] = new Carta(3, 0, "Ataque Medio", 4, "", 0, 6);
-		cartasDoJogo[5] = new Carta(4, 0, "Ataque Medio/Alto", 5, "", 0, 8);
-		cartasDoJogo[6] = new Carta(6, 1, "Ataque Alto", 6, "", 0, 10);
-		cartasDoJogo[7] = new Carta(9, 1, "Ataque Extremo", 7, "", 0, 20);
+		cartasDoJogo[0] = new CartaDefesa(9, "Defesa Alta", 0, "", 20);
+		cartasDoJogo[1] = new CartaDefesa(6, "Defesa Media/Alta", 1, "", 15);
+		cartasDoJogo[2] = new CartaDefesa(4, "Defesa Media", 2, "", 10);
+		cartasDoJogo[3] = new CartaDefesa(3, "Defesa Baixa", 3, "", 5);
+		cartasDoJogo[4] = new CartaAtaque(3, "Ataque Medio", 4, "", 6);
+		cartasDoJogo[5] = new CartaAtaque(4, "Ataque Medio/Alto", 5, "", 8);
+		cartasDoJogo[6] = new CartaAtaque(6, "Ataque Alto", 6, "", 10);
+		cartasDoJogo[7] = new CartaAtaque(9, "Ataque Extremo", 7, "", 20);
 		
 	}
 	

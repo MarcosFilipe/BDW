@@ -1,5 +1,15 @@
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+
 public class Telaprincipal extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected AtorJogador ator;
 	protected JPanel jPaneinst;
 	protected Label objeto;
@@ -9,7 +19,6 @@ public class Telaprincipal extends JFrame {
 	protected JMenuItem iniciarPartida;
 	protected JMenuItem desconectar;
 	protected JButton mover;
-	protected Posicao posicao;
 	protected int movimento;
 
 	public void Connect() {

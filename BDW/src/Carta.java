@@ -5,6 +5,7 @@ public class Carta {
 	protected int id;
 	protected String img;
 	protected boolean habilitado;
+	protected int alvo;
 	
 	public Carta(int antimateria, String nome, int id, String img) {
 		this.antimateria = antimateria;
@@ -40,5 +41,13 @@ public class Carta {
 			
 	public boolean getHabilitado(){
 		return habilitado;
+	}
+
+	public int getAlvo() {
+		return alvo;
+	}
+
+	public void setAlvo(int alvo) {
+		this.alvo = alvo;
 	}
 }

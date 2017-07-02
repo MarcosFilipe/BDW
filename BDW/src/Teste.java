@@ -9,12 +9,7 @@ public class Teste {
 	
 	@Test
 	public void testeCriaCartasDoJogo() {
-		Mapa mapa = new Mapa();
 		
-		mapa.criaDeckCartasDoJogo();
-		Carta carta = mapa.getCartaDeck(0);
-		int defesa = carta.getDefesa();
-		assertEquals(defesa, 20);
 	}
 	
 }

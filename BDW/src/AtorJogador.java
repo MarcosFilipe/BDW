@@ -13,8 +13,7 @@ public class AtorJogador {
 	 * @param jogada
 	 */
 	public void receberJogada(Jogada jogada) {
-		// TODO - implement AtorJogador.receberJogada
-		throw new UnsupportedOperationException();
+		mapa.receberJogada(jogada);
 	}
 
 	public void executarDefesa() {

@@ -5,10 +5,6 @@ public class Jogador implements InterfaceJogada {
 	protected boolean daVez;
 	protected String nome;
 	protected int id;
-	/*
-	 * deck contem o id das 4 cartas possiveis para jogada
-	 * facilita na habilitacao e desabilitacao das cartas de ataque
-	 */
 	protected int[] deck;
 	protected Carta[] cartasEmJogo;
 	protected TimerTurno timer;
@@ -25,12 +21,15 @@ public class Jogador implements InterfaceJogada {
 	 * @param tempoAtualTurno
 	 */
 	
-
-	@Override
-	public void enviaJogada(Jogada jogada) {
-		// TODO Auto-generated method stub
-		
+	/*
+	 * necessidade do metodo na classe jogador?
+	 * procedimento atributo da classe mapa
+	 * 
+	public Jogada enviaJogada() {
+		Jogada jogada = new Jogada(id, procedimento, cartasEmJogo);
+		return jogada;
 	}
+	*/
 	
 	public void adicionarAntimateria(int antimateriaAdicao){
 		this.antimateria += antimateriaAdicao;
@@ -75,6 +74,9 @@ public class Jogador implements InterfaceJogada {
 		return this.daVez;
 	}	 
 	
+	public Carta[] getCartasEmJogo(){
+		return cartasEmJogo;
+	}
 	public Carta getCartaDoCampo(int posicao) {
 		return this.cartasEmJogo[posicao];
 	}

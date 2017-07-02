@@ -16,9 +16,9 @@ public class Mapa implements InterfaceJogada {
 	protected int numCartasEmJogo;
 	protected Jogada jogadaRecebida;
 	protected int numTurnos;
-	private Integer integer;
 	protected int numJogadas;
-
+	protected int procedimento;
+	private Integer integer;
 
 	public Mapa() {
 		this.trincheira = new Torre[3];
@@ -31,6 +31,7 @@ public class Mapa implements InterfaceJogada {
 		criaDeckCartasDoJogo();
 		this.tabuleiro = new Object[width][heigt];
 		this.numTurnos = 0;
+		this.procedimento = 1;
 	}
 	
 	public void procedimentoDeLance(int procedimento, AtorJogador atorJogador) {
@@ -180,6 +181,9 @@ public class Mapa implements InterfaceJogada {
 		int tipoJogada = jogadaRecebida.getTipoJogada();
 		if(tipoJogada == 1){
 			jogador.setDaVez(true);
+			procedimento = 0;
+		}else{
+			procedimento = 1;
 		}
  	}
 		 	
@@ -239,29 +243,50 @@ public class Mapa implements InterfaceJogada {
 	}
 		
 	private boolean calcularDano(){
-		/*
-		int alvo = 0;
-		for(int i = 0; i < cartasJogadasJogador; i++){
-			alvo = cartasJogadasJogador[i].getAlvo();
-			if(cartasJogadasJogador[i] instanceof CartaDefesa){
-				trincheira[alvo].incrementarVida(cartasJogadasJogador[i].getDefesa());
-			}else{
-				trincheiraAdversario[alvo].decrementarVida(cartasJogadasJogador[i].getAtaque());
-			}
-		}
-		for(int i = 0; i < cartasJogadasAdversario; i++){
-			alvo = cartasJogadasAdversario[i].getAlvo();
-			if(cartasJogadasAdversario[i] instanceof CartaDefesa){
-				trincheiraAdversario[alvo].incrementarVida(cartasJogadasAdversario[i].getDefesa());
-			}else{
-				trincheira[alvo].decrementarVida(cartasJogadasAdversario[i].getAtaque());
-			}
-		}
-		*/
+		calculaJogadasJogador();
+		calculaJogadasAdversario();
+		verificaTrincheiraDestruida();
 		return definirVencedor();
 	}
+
+	private void calculaJogadasJogador() {
+		int alvo = 0;
+		Carta[] cartasEmJogo = jogador.getCartasEmJogo();
+		for(int i = 0; i < cartasEmJogo.length; i++){
+			alvo = cartasEmJogo[i].getAlvo();
+			if(cartasEmJogo[i] instanceof CartaDefesa){
+				trincheira[alvo].incrementarVida(((CartaDefesa)cartasEmJogo[i]).getDefesa());
+			}else{
+				trincheiraAdversario[alvo].decrementarVida(((CartaAtaque)cartasEmJogo[i]).getAtaque());
+			}
+		}
+	}
+
+	private void calculaJogadasAdversario() {
+		int alvo = 0;
+		Carta[] cartasEmJogo = jogadaRecebida.getCarta();
+		for(int i = 0; i < cartasEmJogo.length; i++){
+			alvo = cartasEmJogo[i].getAlvo();
+			if(cartasEmJogo[i] instanceof CartaDefesa){
+				trincheiraAdversario[alvo].incrementarVida(((CartaDefesa)cartasEmJogo[i]).getDefesa());
+			}else{
+				trincheira[alvo].decrementarVida(((CartaAtaque)cartasEmJogo[i]).getAtaque());
+			}
+		}
+	}
+
+	private void verificaTrincheiraDestruida() {
+		for(int i = 0; i < trincheira.length; i++){
+			if(trincheira[i].getPtosdevida() <= 0){
+				trincheira[i] = null;
+			}
+			if(trincheiraAdversario[i].getPtosdevida() <= 0){
+				trincheiraAdversario[i] = null;
+			}
+		}
+	}
 		
-	private boolean definirVencedor(){
+	public boolean definirVencedor(){
 		if(numTurnos == 20){
 			verificarVencedorTurnoLimite();
 			return true;
@@ -322,9 +347,9 @@ public class Mapa implements InterfaceJogada {
 		 	
 
 	@Override
-	public void enviaJogada(Jogada jogada) {
-		// TODO Auto-generated method stub
-		
+	public Jogada enviaJogada() {
+		Jogada jogada = new Jogada(jogador.getId(), procedimento, jogador.getCartasEmJogo());
+		return jogada;
 	}
 	
 	public void criaDeckCartasDoJogo() {
@@ -364,7 +389,7 @@ public class Mapa implements InterfaceJogada {
 	private void habilitarCarta(){
 		for(int i = 0; i < cartasDoJogo.length; i++){
 			cartasDoJogo[i].setHabilitado(true);
+		}
 	}
-	
-
+		
 }

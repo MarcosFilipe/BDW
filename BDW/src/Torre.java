@@ -19,4 +19,12 @@ public class Torre {
 	public int getIdjogadorResponsavel() {
 		return idjogadorResponsavel;
 	}
+	
+	public void incrementarVida(int defesa) {
+		ptosdevida += defesa;
+	}
+	
+	public void decrementarVida(int ataque){
+		ptosdevida += ataque;
+	}
 }

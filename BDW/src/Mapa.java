@@ -240,6 +240,25 @@ public class Mapa implements InterfaceJogada {
 	}
 		
 	private boolean calcularDano(){
+		/*
+		int alvo = 0;
+		for(int i = 0; i < cartasJogadasJogador; i++){
+			alvo = cartasJogadasJogador[i].getAlvo();
+			if(cartasJogadasJogador[i] instanceof CartaDefesa){
+				trincheira[alvo].incrementarVida(cartasJogadasJogador[i].getDefesa());
+			}else{
+				trincheiraAdversario[alvo].decrementarVida(cartasJogadasJogador[i].getAtaque());
+			}
+		}
+		for(int i = 0; i < cartasJogadasAdversario; i++){
+			alvo = cartasJogadasAdversario[i].getAlvo();
+			if(cartasJogadasAdversario[i] instanceof CartaDefesa){
+				trincheiraAdversario[alvo].incrementarVida(cartasJogadasAdversario[i].getDefesa());
+			}else{
+				trincheira[alvo].decrementarVida(cartasJogadasAdversario[i].getAtaque());
+			}
+		}
+		*/
 		return definirVencedor();
 	}
 		
@@ -337,8 +356,7 @@ public class Mapa implements InterfaceJogada {
 	
 	private void desabilitarCarta(){
 		for(int i = 0; i < cartasDoJogo.length; i++){
-			int defesa = cartasDoJogo[i].getDefesa();
-			if(defesa == 0){
+			if(cartasDoJogo[i] instanceof CartaDefesa){
 				cartasDoJogo[i].setHabilitado(false);
 			}
 		}
@@ -346,10 +364,7 @@ public class Mapa implements InterfaceJogada {
 	
 	private void habilitarCarta(){
 		for(int i = 0; i < cartasDoJogo.length; i++){
-			int defesa = cartasDoJogo[i].getDefesa();
-			if(defesa == 0){
-				cartasDoJogo[i].setHabilitado(true);
-			}
+			cartasDoJogo[i].setHabilitado(true);
 		}
 	}
 	

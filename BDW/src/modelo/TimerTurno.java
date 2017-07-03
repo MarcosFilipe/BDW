@@ -1,3 +1,4 @@
+package modelo;
 
 public class TimerTurno extends Thread{
 	protected int tempo;

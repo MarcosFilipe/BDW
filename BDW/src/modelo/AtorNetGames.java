@@ -1,3 +1,7 @@
+package modelo;
+
+import visao.AtorJogador;
+
 public class AtorNetGames implements ListnerProxy {
 
 	protected AtorJogador atorJogador;

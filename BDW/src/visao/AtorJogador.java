@@ -1,4 +1,10 @@
+package visao;
 import javax.swing.JButton;
+
+import modelo.AtorNetGames;
+import modelo.Carta;
+import modelo.Jogada;
+import modelo.Mapa;
 
 public class AtorJogador {
 
@@ -21,12 +27,12 @@ public class AtorJogador {
 		throw new UnsupportedOperationException();
 	}
 
-	public void iniciarNovaPartida() {
+	public void iniciarNovaPartida(String nome, int trincheiraEscolhida) {
 		this.mapa = new Mapa();
-		mapa.criaJogador("nome");
-		mapa.criarJogadorAdversario(rede.informarAdversario());
-		mapa.jogadorTurnoInicial();
-		exibirEstado();
+		mapa.criaJogador(nome);
+		//mapa.criarJogadorAdversario(rede.informarAdversario());
+		//mapa.jogadorTurnoInicial();
+		//exibirEstado();
 	}
 
 	public void exibirEstado() {

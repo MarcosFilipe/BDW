@@ -1,4 +1,7 @@
+package modelo;
 import java.util.Random;
+
+import visao.AtorJogador;
 
 public class Mapa implements InterfaceJogada {
 
@@ -193,20 +196,17 @@ public class Mapa implements InterfaceJogada {
 		throw new UnsupportedOperationException();
 	}
 
-	/*
-	 * verificar a necessidade de id
-	 */
 	public void criaJogador(String nome) {
 		jogador = new Jogador(nome);
 		for(int i = 0; i < 3; i++){
-			trincheira[i] = new Torre(jogador.getId());
+			trincheira[i] = new Torre(jogador.getNome());
 		}
 	}
 	
 	public void criarJogadorAdversario(Jogador jogadorAdversario) {
 		this.jogadorAdversario = jogadorAdversario;
 		for(int i = 0; i < 3; i++){
-			trincheiraAdversario[i] = new Torre(this.jogadorAdversario.getId());
+			trincheiraAdversario[i] = new Torre(this.jogadorAdversario.getNome());
 		}
 	}
 
@@ -348,7 +348,7 @@ public class Mapa implements InterfaceJogada {
 
 	@Override
 	public Jogada enviaJogada() {
-		Jogada jogada = new Jogada(jogador.getId(), procedimento, jogador.getCartasEmJogo());
+		Jogada jogada = new Jogada(jogador.getNome(), procedimento, jogador.getCartasEmJogo());
 		return jogada;
 	}
 	

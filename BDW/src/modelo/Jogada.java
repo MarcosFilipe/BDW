@@ -1,21 +1,22 @@
+package modelo;
 public class Jogada {
 
-	protected int idJogadorResponsavel;
+	protected String nomeJogadorResponsavel;
 	protected int tipoJogada;
 	protected Carta[] carta;
 	
-	public Jogada(int idJogadorResponsavel, int tipoJogada, Carta[] carta){
-		this.idJogadorResponsavel = idJogadorResponsavel;
+	public Jogada(String nomeJogadorResponsavel, int tipoJogada, Carta[] carta){
+		this.nomeJogadorResponsavel = nomeJogadorResponsavel;
 		this.tipoJogada = tipoJogada;
 		this.carta = carta;
 	}
 	
-	public int getIdJogadorResponsavel() {
-		return idJogadorResponsavel;
+	public String getIdJogadorResponsavel() {
+		return nomeJogadorResponsavel;
 	}
 	
-	public void setIdJogadorResponsavel(int idJogadorResponsavel) {
-		this.idJogadorResponsavel = idJogadorResponsavel;
+	public void setIdJogadorResponsavel(String nomeJogadorResponsavel) {
+		this.nomeJogadorResponsavel = nomeJogadorResponsavel;
 	}
 	
 	public int getTipoJogada() {

@@ -1,8 +1,11 @@
+package modelo;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+
+import visao.AtorJogador;
 
 public class Telaprincipal extends JFrame {
 

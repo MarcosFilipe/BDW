@@ -1,10 +1,10 @@
-public class Jogador implements InterfaceJogada {
+package modelo;
+public class Jogador {
 
 	protected int antimateria;
 	protected boolean vencedor;
 	protected boolean daVez;
 	protected String nome;
-	protected int id;
 	protected int[] deck;
 	protected Carta[] cartasEmJogo;
 	protected TimerTurno timer;
@@ -60,10 +60,6 @@ public class Jogador implements InterfaceJogada {
 		
 	public String getNome() {
 		return nome;
-	}
-		
-	public int getId() {
-		return id;
 	}
 	
 	public void setDaVez(boolean daVez) {

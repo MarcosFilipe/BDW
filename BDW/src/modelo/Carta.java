@@ -1,11 +1,12 @@
+package modelo;
 public class Carta {
 
-	protected int antimateria;
-	protected String nome;
-	protected int id;
-	protected String img;
-	protected boolean habilitado;
-	protected int alvo;
+	private int antimateria;
+	private String nome;
+	private int id;
+	private String img;
+	private boolean habilitado;
+	private int alvo;
 	
 	public Carta(int antimateria, String nome, int id, String img) {
 		this.antimateria = antimateria;

@@ -1,10 +1,11 @@
+package modelo;
 public class Torre {
-	protected int ptosdevida;
-	protected int idjogadorResponsavel;
-	protected String imagem;
+	private int ptosdevida;
+	private String nomeJogadorResponsavel;
+	private String imagem;
 	
-	public Torre(int idJogadorResponsavel){
-		this.idjogadorResponsavel = idJogadorResponsavel;
+	public Torre(String nomeJogadorResponsavel){
+		this.nomeJogadorResponsavel = nomeJogadorResponsavel;
 		this.ptosdevida = 30;
 	}
 	
@@ -16,8 +17,8 @@ public class Torre {
 		this.ptosdevida = ptosdevida;
 	}
 	
-	public int getIdjogadorResponsavel() {
-		return idjogadorResponsavel;
+	public String getNomeJogadorResponsavel() {
+		return nomeJogadorResponsavel;
 	}
 	
 	public void incrementarVida(int defesa) {

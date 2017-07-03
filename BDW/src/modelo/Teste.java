@@ -1,3 +1,4 @@
+package modelo;
 
 
 import static org.junit.Assert.*;
@@ -20,10 +21,10 @@ public class Teste {
 		mapa.jogadorAdversario = new Jogador("nome2");
 		mapa.numTurnos = 20;
 		for(int i = 0; i < 3; i++){
-			mapa.trincheira[i] = new Torre(i);
+			mapa.trincheira[i] = new Torre("joao");
 		}
 		for(int i = 0; i < 1; i++){
-			mapa.trincheiraAdversario[i] = new Torre(i+3);
+			mapa.trincheiraAdversario[i] = new Torre("maria");
 		}
 		mapa.definirVencedor();
 		//System.out.println(mapa.jogador.getVencedor());
@@ -37,7 +38,7 @@ public class Teste {
 		mapa.jogadorAdversario = new Jogador("nome2");
 		mapa.numTurnos = 5;
 		for(int i = 0; i < 3; i++){
-			mapa.trincheira[i] = new Torre(i);
+			mapa.trincheira[i] = new Torre("joao");
 		}
 		mapa.definirVencedor();
 		//System.out.println(mapa.jogador.getVencedor());
@@ -45,7 +46,7 @@ public class Teste {
 		assertEquals(true, mapa.definirVencedor());
 		
 		for(int i = 0; i < 1; i++){
-			mapa.trincheiraAdversario[i] = new Torre(i+3);
+			mapa.trincheiraAdversario[i] = new Torre("maria");
 		}
 		assertEquals(false, mapa.definirVencedor());
 	}

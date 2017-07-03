@@ -1,7 +1,8 @@
+package modelo;
 
 public class TimerTurno extends Thread{
-	protected int tempo;
-	protected Mapa mapa;
+	private int tempo;
+	private Mapa mapa;
 	
 	public TimerTurno(int procedimento, Mapa mapa) {
 		if(procedimento == 1)

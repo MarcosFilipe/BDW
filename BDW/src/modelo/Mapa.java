@@ -1,24 +1,27 @@
+package modelo;
 import java.util.Random;
+
+import visao.AtorJogador;
 
 public class Mapa implements InterfaceJogada {
 
-	protected Torre[] trincheira, trincheiraAdversario;
-	protected boolean turno;
-	protected String imagemMapa;
-	protected int width;
-	protected int heigt;
-	protected int tempoTurno;
-	protected Carta[] cartasDoJogo;
-	protected Jogador jogador, jogadorAdversario;
-	protected TimerTurno timer;
-	protected boolean turnoEncerrado;
-	protected Object tabuleiro[][];
-	protected int numCartasEmJogo;
-	protected Jogada jogadaRecebida;
-	protected int numTurnos;
-	protected int numJogadas;
-	protected int procedimento;
-	private Integer integer;
+	private Torre[] trincheira, trincheiraAdversario;
+	private boolean turno;       //nao usado
+	private String imagemMapa;   //nao usado
+	private int width;           //nao usado
+	private int heigt;           //nao usado
+	private int tempoTurno;
+	private Carta[] cartasDoJogo;
+	private Jogador jogador, jogadorAdversario;
+	private TimerTurno timer;
+	private boolean turnoEncerrado;
+	private Object tabuleiro[][]; //nao usado
+	private int numCartasEmJogo;  //nao usado
+	private Jogada jogadaRecebida;
+	private int numTurnos;
+	private int numJogadas;
+	private int procedimento;
+	private Integer integer;      //?
 
 	public Mapa() {
 		this.trincheira = new Torre[3];
@@ -97,13 +100,13 @@ public class Mapa implements InterfaceJogada {
 	 */
 	public void invocarCarta(int idCartaSelecionada) {
 		
-			if(jogador.daVez) {
+			if(jogador.getDaVez()) {
 				Carta carta = getCartaDeck(idCartaSelecionada);
 				if (!carta.getHabilitado()) {
 					//alerta falha
 				} else
 					if (verificaAntimateria(carta)) {
-						if(jogador.cartasEmJogo.length < 5) {
+						if(jogador.getCartasEmJogo().length < 5) {
 							addCartaCampo(carta);
 							jogador.decrementarAntimateria(carta.getAntimateria());
 							numJogadas++;
@@ -114,7 +117,11 @@ public class Mapa implements InterfaceJogada {
 			
 	
 	private void addNovaCartaMao() {
-		  if (jogador.deck.length < 4) {
+		/*
+		 * length pega o numero total de posicoes no array
+		 * e nao posicoes nao nulas
+		 */
+		  if (jogador.getDeck().length < 4) {
 			 boolean existe = true;
 			 int index = 0;
 			 
@@ -123,20 +130,20 @@ public class Mapa implements InterfaceJogada {
 				Random gerador = new Random();
 				 index = gerador.nextInt(8);
 				
-				for (int i = 0; i < jogador.deck.length; i++)
-					if(jogador.deck[i] == index) {
+				for (int i = 0; i < jogador.getDeck().length; i++)
+					if(jogador.getDeck()[i] == index) {
 						existe = true;
 					}
 			}
-			int posicao = jogador.deck.length;
-			jogador.deck[posicao] = index;
+			int posicao = jogador.getDeck().length;
+			jogador.setDeck(posicao, index);
 		}
 	}
 	
 	private void removerCartaMao(int idCarta) {
-		for (int i = 0; i < jogador.deck.length; i++) {
-			if(jogador.deck[i] == idCarta) {
-				jogador.deck[i] = (Integer) null;
+		for (int i = 0; i < jogador.getDeck().length; i++) {
+			if(jogador.getDeck()[i] == idCarta) {
+				jogador.setDeck(i, (Integer) null);
 				
 				addNovaCartaMao();
 				
@@ -145,7 +152,7 @@ public class Mapa implements InterfaceJogada {
 	}
 	
 	private void addCartaCampo(Carta carta) {
-		int posicao = jogador.cartasEmJogo.length;
+		int posicao = jogador.getCartasEmJogo().length;
 		jogador.addCartaCampo(posicao, carta);
 		removerCartaMao(carta.getId());
 	}
@@ -155,6 +162,7 @@ public class Mapa implements InterfaceJogada {
 	 * 
 	 * @param msg
 	 */
+	/*
 	public void alertarFalha(String msg) {
 		// TODO - implement Mapa.alertarFalha
 		throw new UnsupportedOperationException();
@@ -170,6 +178,11 @@ public class Mapa implements InterfaceJogada {
 		throw new UnsupportedOperationException();
 	}
 	
+	public void setJogador1() {
+		// TODO - implement Mapa.setJogador1
+		throw new UnsupportedOperationException();
+	}
+	*/
 	
 
 	/**
@@ -186,27 +199,18 @@ public class Mapa implements InterfaceJogada {
 			procedimento = 1;
 		}
  	}
-		 	
 
-	public void setJogador1() {
-		// TODO - implement Mapa.setJogador1
-		throw new UnsupportedOperationException();
-	}
-
-	/*
-	 * verificar a necessidade de id
-	 */
 	public void criaJogador(String nome) {
 		jogador = new Jogador(nome);
 		for(int i = 0; i < 3; i++){
-			trincheira[i] = new Torre(jogador.getId());
+			trincheira[i] = new Torre(jogador.getNome());
 		}
 	}
 	
 	public void criarJogadorAdversario(Jogador jogadorAdversario) {
 		this.jogadorAdversario = jogadorAdversario;
 		for(int i = 0; i < 3; i++){
-			trincheiraAdversario[i] = new Torre(this.jogadorAdversario.getId());
+			trincheiraAdversario[i] = new Torre(this.jogadorAdversario.getNome());
 		}
 	}
 
@@ -348,7 +352,7 @@ public class Mapa implements InterfaceJogada {
 
 	@Override
 	public Jogada enviaJogada() {
-		Jogada jogada = new Jogada(jogador.getId(), procedimento, jogador.getCartasEmJogo());
+		Jogada jogada = new Jogada(jogador.getNome(), procedimento, jogador.getCartasEmJogo());
 		return jogada;
 	}
 	

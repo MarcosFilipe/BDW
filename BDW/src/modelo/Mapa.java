@@ -6,33 +6,21 @@ import visao.AtorJogador;
 public class Mapa implements InterfaceJogada {
 
 	private Torre[] trincheira, trincheiraAdversario;
-	private boolean turno;       //nao usado
-	private String imagemMapa;   //nao usado
-	private int width;           //nao usado
-	private int heigt;           //nao usado
 	private int tempoTurno;
 	private Carta[] cartasDoJogo;
 	private Jogador jogador, jogadorAdversario;
 	private TimerTurno timer;
 	private boolean turnoEncerrado;
-	private Object tabuleiro[][]; //nao usado
-	private int numCartasEmJogo;  //nao usado
 	private Jogada jogadaRecebida;
 	private int numTurnos;
 	private int numJogadas;
 	private int procedimento;
-	private Integer integer;      //?
 
 	public Mapa() {
 		this.trincheira = new Torre[3];
 		this.trincheiraAdversario = new Torre[3];
-		this.imagemMapa = "";
-		this.width = 5;
-		this.heigt = 10;
-		this.numCartasEmJogo = 0;
 		cartasDoJogo = new Carta[8];
 		criaDeckCartasDoJogo();
-		this.tabuleiro = new Object[width][heigt];
 		this.numTurnos = 0;
 		this.procedimento = 1;
 	}
@@ -43,8 +31,8 @@ public class Mapa implements InterfaceJogada {
 		turnoEncerrado = false;
 		timer = new TimerTurno(procedimento, this);
 		timer.start();
-		atorJogador.encerrarTurno.setEnabled(true);
-		atorJogador.sair.setEnabled(true);
+		//atorJogador.encerrarTurno.setEnabled(true);
+		//atorJogador.sair.setEnabled(true);
 		
 		boolean encerrar = false;
 		while(encerrar == false)
@@ -62,18 +50,6 @@ public class Mapa implements InterfaceJogada {
 			this.tempoTurno = 20; // 20 segundos
 	}
 
-	public int getTempo() {
-		return this.tempoTurno;
-	}
-
-	/**
-	 * 
-	 * @param id
-	 */
-	public Carta selecionarCarta(int id) {
-		// TODO - implement Mapa.selecionarCarta
-		throw new UnsupportedOperationException();
-	}
 
 	/**
 	 * 
@@ -160,33 +136,6 @@ public class Mapa implements InterfaceJogada {
 
 	/**
 	 * 
-	 * @param msg
-	 */
-	/*
-	public void alertarFalha(String msg) {
-		// TODO - implement Mapa.alertarFalha
-		throw new UnsupportedOperationException();
-	}
-
-	public void mouseClicked() {
-		// TODO - implement Mapa.mouseClicked
-		throw new UnsupportedOperationException();
-	}
-
-	public void operation() {
-		// TODO - implement Mapa.operation
-		throw new UnsupportedOperationException();
-	}
-	
-	public void setJogador1() {
-		// TODO - implement Mapa.setJogador1
-		throw new UnsupportedOperationException();
-	}
-	*/
-	
-
-	/**
-	 * 
 	 * @param jogada
 	 */
 	public void receberJogada(Jogada jogada) {
@@ -214,18 +163,6 @@ public class Mapa implements InterfaceJogada {
 		}
 	}
 
-	public void jogadorTurnoInicial() {
-		Random gerador = new Random();
-		int vez = gerador.nextInt(2);
-		
-		if(vez == 0) {
-			jogador.setDaVez(true);
-			jogadorAdversario.setDaVez(false);
-		} else {
-			jogadorAdversario.setDaVez(true);
-			jogador.setDaVez(false);
-		}
-	}
 	
 	public Carta getCartaDeck(int id) {
 		return cartasDoJogo[id];
@@ -356,7 +293,7 @@ public class Mapa implements InterfaceJogada {
 		return jogada;
 	}
 	
-	public void criaDeckCartasDoJogo() {
+	private void criaDeckCartasDoJogo() {
 		cartasDoJogo[0] = new CartaDefesa(9, "Defesa Alta", 0, "", 20);
 		cartasDoJogo[1] = new CartaDefesa(6, "Defesa Media/Alta", 1, "", 15);
 		cartasDoJogo[2] = new CartaDefesa(4, "Defesa Media", 2, "", 10);
@@ -380,6 +317,7 @@ public class Mapa implements InterfaceJogada {
 				this.desabilitarCarta();
 			}
 		}
+		timer.start();
 	}
 	
 	private void desabilitarCarta(){

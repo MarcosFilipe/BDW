@@ -1,7 +1,6 @@
 package visao;
 
 import java.awt.Component;
-import java.awt.EventQueue;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +10,10 @@ import javax.swing.SwingUtilities;
 
 public class JanelaTabuleiro extends JFrame {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private PainelJogoExecucao painelJogoExecucao;
 
 	/*
@@ -30,7 +33,7 @@ public class JanelaTabuleiro extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public JanelaTabuleiro(int trincheiraEscolhida, AtorJogador atorJogador) {
+	public JanelaTabuleiro(int trincheiraEscolhida) {
 		this.setTitle("Black Dots War");
 		setLayout(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,7 +53,7 @@ public class JanelaTabuleiro extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new JanelaJogo();
+				new AtorJogador();
 				fechaJanelaTabuleiro();
 				
 			}

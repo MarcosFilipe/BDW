@@ -7,7 +7,6 @@ public class Jogador {
 	private String nome;
 	private int[] deck;
 	private Carta[] cartasEmJogo;
-	private TimerTurno timer;    // nao usado
 	
 	public Jogador(String nome){
 		this.nome = nome;
@@ -30,15 +29,6 @@ public class Jogador {
 	 * @param tempoAtualTurno
 	 */
 	
-	/*
-	 * necessidade do metodo na classe jogador?
-	 * procedimento atributo da classe mapa
-	 * 
-	public Jogada enviaJogada() {
-		Jogada jogada = new Jogada(id, procedimento, cartasEmJogo);
-		return jogada;
-	}
-	*/
 	
 	public void adicionarAntimateria(int antimateriaAdicao){
 		this.antimateria += antimateriaAdicao;

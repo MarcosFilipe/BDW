@@ -2,7 +2,6 @@ package modelo;
 public class Torre {
 	private int ptosdevida;
 	private String nomeJogadorResponsavel;
-	private String imagem;
 	
 	public Torre(String nomeJogadorResponsavel){
 		this.nomeJogadorResponsavel = nomeJogadorResponsavel;

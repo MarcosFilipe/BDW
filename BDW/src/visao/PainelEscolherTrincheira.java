@@ -11,7 +11,7 @@ import java.io.File;
 import javax.swing.JRadioButton;
 import javax.swing.JLabel;
 
-public class PainelEscolherTrinheira extends JPanel {
+public class PainelEscolherTrincheira extends JPanel {
 	
 	private JButton btnContinuar;
 	private JRadioButton radioTorre1;
@@ -19,7 +19,7 @@ public class PainelEscolherTrinheira extends JPanel {
 	
 	private int trincheiraEscolhida;
 
-	public PainelEscolherTrinheira() {
+	public PainelEscolherTrincheira() {
 		setLayout(null);
 		this.setLocation(0, 0);
 		this.setVisible(true);

@@ -10,9 +10,9 @@ public class AtorJogador {
 
 	protected Mapa mapa;
 	protected AtorNetGames rede;
-	protected String idUsuario;
-	public JButton encerrarTurno;
-	public JButton sair;
+	protected String nomeUsuario;
+	public JButton encerrarTurno; // nao usado
+	public JButton sair;          // nao usado
 
 	/**
 	 * 
@@ -30,6 +30,9 @@ public class AtorJogador {
 	public void iniciarNovaPartida(String nome, int trincheiraEscolhida) {
 		this.mapa = new Mapa();
 		mapa.criaJogador(nome);
+		//! aqui so ta comentado pra funcionar a interface grafica ja que
+		// nao foi implementado a parte do net games
+		
 		//mapa.criarJogadorAdversario(rede.informarAdversario());
 		//mapa.jogadorTurnoInicial();
 		//exibirEstado();

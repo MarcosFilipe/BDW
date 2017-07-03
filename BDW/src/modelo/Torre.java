@@ -1,8 +1,8 @@
 package modelo;
 public class Torre {
-	protected int ptosdevida;
-	protected String nomeJogadorResponsavel;
-	protected String imagem;
+	private int ptosdevida;
+	private String nomeJogadorResponsavel;
+	private String imagem;
 	
 	public Torre(String nomeJogadorResponsavel){
 		this.nomeJogadorResponsavel = nomeJogadorResponsavel;

@@ -1,9 +1,9 @@
 package modelo;
 public class Jogada {
 
-	protected String nomeJogadorResponsavel;
-	protected int tipoJogada;
-	protected Carta[] carta;
+	private String nomeJogadorResponsavel;
+	private int tipoJogada;
+	private Carta[] carta;
 	
 	public Jogada(String nomeJogadorResponsavel, int tipoJogada, Carta[] carta){
 		this.nomeJogadorResponsavel = nomeJogadorResponsavel;

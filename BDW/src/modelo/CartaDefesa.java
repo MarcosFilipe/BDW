@@ -2,7 +2,7 @@ package modelo;
 
 public class CartaDefesa extends Carta {
 	
-	protected int defesa;
+	private int defesa;
 
 	public CartaDefesa(int antimateria,  String nome, int id, String img, int defesa) {
 		super(antimateria, nome, id, img);

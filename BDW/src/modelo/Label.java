@@ -2,6 +2,10 @@ package modelo;
 import javax.swing.JLabel;
 
 public class Label extends JLabel {
+	
+	/*
+	 * nao usado
+	 */
 
 	/**
 	 * 

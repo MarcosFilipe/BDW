@@ -8,6 +8,10 @@ import javax.swing.JPanel;
 import visao.AtorJogador;
 
 public class Telaprincipal extends JFrame {
+	
+	/*
+	 * nao usado
+	 */
 
 	/**
 	 * 

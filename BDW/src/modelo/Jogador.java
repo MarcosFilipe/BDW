@@ -1,21 +1,30 @@
 package modelo;
 public class Jogador {
 
-	protected int antimateria;
-	protected boolean vencedor;
-	protected boolean daVez;
-	protected String nome;
-	protected int[] deck;
-	protected Carta[] cartasEmJogo;
-	protected TimerTurno timer;
+	private int antimateria;
+	private boolean vencedor;
+	private boolean daVez;
+	private String nome;
+	private int[] deck;
+	private Carta[] cartasEmJogo;
+	private TimerTurno timer;    // nao usado
 	
 	public Jogador(String nome){
 		this.nome = nome;
+		this.deck = new int[4];
 		this.antimateria = 10;
 		this.vencedor = false;
 		this.daVez = false;
 	}
 	
+	public int[] getDeck() {
+		return deck;
+	}
+
+	public void setDeck(int posicao, int indiceCarta) {
+		this.deck[posicao] = indiceCarta;
+	}
+
 	/**
 	 * 
 	 * @param tempoAtualTurno

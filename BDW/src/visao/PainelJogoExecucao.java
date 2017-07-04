@@ -81,7 +81,7 @@ public class PainelJogoExecucao extends JPanel {
 		});
 		labelDesconectar.setBackground(new Color(255, 255, 255));
 		labelDesconectar.setIcon(new ImageIcon("C:\\Users\\filip\\Desktop\\BDW IMAGES\\tabuleiro.jpeg"));
-		labelDesconectar.setBounds(0, 0, 602, 763);
+		labelDesconectar.setBounds(0, 0, 70, 530);
 		add(labelDesconectar);
 		
 		JLabel label = new JLabel("");
@@ -152,17 +152,29 @@ public class PainelJogoExecucao extends JPanel {
 		progressTorreAdversario3.setBounds(400, 240, 52, 9);
 		add(progressTorreAdversario3);
 		
-		JButton botaoTorre3 = new JButton("", imagemTorre3);
-		botaoTorre3.setBounds(401, 117, 50, 95);
-		add(botaoTorre3);
+		JButton botaoTorreAdversario3 = new JButton("", imagemTorre3);
+		botaoTorreAdversario3.setBounds(401, 117, 50, 95);
+		add(botaoTorreAdversario3);
 		
-		JButton botaoTorre1 = new JButton("", imagemTorre1);
-		botaoTorre1.setBounds(151, 117, 50, 95);
+		JButton botaoTorreAdversario1 = new JButton("", imagemTorre1);
+		botaoTorreAdversario1.setBounds(151, 117, 50, 95);
+		add(botaoTorreAdversario1);
+		
+		JButton botaoTorreAdversario2 = new JButton("", imagemTorre2);
+		botaoTorreAdversario2.setBounds(270, 110, 70, 80);
+		add(botaoTorreAdversario2);
+		
+		JButton botaoTorre1 = new JButton("");
+		botaoTorre1.setBounds(405, 427, 50, 95);
 		add(botaoTorre1);
 		
-		JButton botaoTorre2 = new JButton("", imagemTorre2);
-		botaoTorre2.setBounds(270, 110, 70, 80);
+		JButton botaoTorre2 = new JButton("");
+		botaoTorre2.setBounds(274, 463, 70, 80);
 		add(botaoTorre2);
+		
+		JButton botaoTorre3 = new JButton("");
+		botaoTorre3.setBounds(157, 427, 50, 95);
+		add(botaoTorre3);
 		
 	}
 	

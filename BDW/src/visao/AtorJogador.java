@@ -20,8 +20,6 @@ public class AtorJogador extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private PainelConectar painelConectar;
-	private PainelInserirNome painelInserirNome;
-	private PainelEscolherTrincheira painelEscolherTrincheira;
 	
 	private Mapa mapa;
 	private AtorNetGames rede;
@@ -65,41 +63,10 @@ public class AtorJogador extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				getContentPane().removeAll();
-				painelInserirNome = new PainelInserirNome();
-				getContentPane().add(painelInserirNome);
-				revalidate();
-				repaint();
-				actionListenerBotaoContinuarNome();
-				
-			}
-		});
-	}
-	
-	public void actionListenerBotaoContinuarNome(){
-		painelInserirNome.actionListenerBotaoContinuar(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				getContentPane().removeAll();
-				painelEscolherTrincheira = new PainelEscolherTrincheira();
-				getContentPane().add(painelEscolherTrincheira);
-				revalidate();
-				repaint();
-				actionListenerBotaoContinuarTrincheira();
-				
-			}
-		});
-	}
-	
-	public void actionListenerBotaoContinuarTrincheira(){
-		painelEscolherTrincheira.actionListenerBotaoContinuar(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int trincheiraEscolhida = painelEscolherTrincheira.getTrincheiraEscolhida();
-				iniciarNovaPartida(painelInserirNome.getNomeJogador(), trincheiraEscolhida);
-				JanelaTabuleiro janelaTabuleiro = new JanelaTabuleiro(trincheiraEscolhida);
+				painelConectar.setNomeJogador();
+				//pegar daVez
+				iniciarNovaPartida(painelConectar.getNomeJogador(), 0);
+				JanelaTabuleiro janelaTabuleiro = new JanelaTabuleiro(0);
 				fechaJanelaJogo();
 				
 			}

@@ -22,8 +22,6 @@ public class AtorJogador extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private PainelConectar painelConectar;
-	private PainelInserirNome painelInserirNome;
-	private PainelEscolherTrincheira painelEscolherTrincheira;
 	
 	private Mapa mapa;
 	private AtorNetgames rede;
@@ -69,6 +67,7 @@ public class AtorJogador extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+// <<<<<<< marcos-netgames
 				rede.conectar(nomeUsuario, "localhost");
 				getContentPane().removeAll();
 				painelEscolherTrincheira = new PainelEscolherTrincheira();
@@ -85,7 +84,7 @@ public class AtorJogador extends JFrame {
 		if(mapa.ehMinhaVez())
 		rede.enviarJogada(mapa.enviaJogada()); 
 		else {
-			JOptionPane.showMessageDialog(null, "Desculpe, Não é a sua vez!");
+			JOptionPane.showMessageDialog(null, "Desculpe, Nï¿½o ï¿½ a sua vez!");
 		}
 		
 	}
@@ -121,6 +120,12 @@ public class AtorJogador extends JFrame {
 				rede.iniciarPartidaRede();
 				//iniciarNovaPartida(painelInserirNome.getNomeJogador(), trincheiraEscolhida);
 				JanelaTabuleiro janelaTabuleiro = new JanelaTabuleiro(trincheiraEscolhida);
+//=======
+				painelConectar.setNomeJogador();
+				//pegar daVez
+				iniciarNovaPartida(painelConectar.getNomeJogador(), 0);
+				JanelaTabuleiro janelaTabuleiro = new JanelaTabuleiro(0);
+//>>>>>>> master
 				fechaJanelaJogo();
 				
 			}

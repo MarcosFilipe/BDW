@@ -68,7 +68,12 @@ public class AtorNetgames implements OuvidorProxy {
 		}
 		
 	}
-
+	
+	/*
+	 * esse metodo eh chamado pelo servido quando eh solicitado que seja iniciado uma nova 
+	 * partida (pelo metodo iniciarPartidaRede. 
+	 * parametro posicao eh utilizado para definir quem comecara o jogo)
+	 */
 	@Override
 	public void iniciarNovaPartida(Integer posicao) {
 		if(posicao == 1) 

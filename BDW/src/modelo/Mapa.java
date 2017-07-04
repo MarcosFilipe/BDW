@@ -1,10 +1,15 @@
 package modelo;
 import java.util.Random;
 
+import br.ufsc.inf.leobr.cliente.Jogada;
 import visao.AtorJogador;
 
-public class Mapa implements InterfaceJogada {
+public class Mapa implements Jogada {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Torre[] trincheira, trincheiraAdversario;
 	private Carta[] cartasDoJogo;
 	private Jogador jogador, jogadorAdversario;
@@ -288,7 +293,6 @@ public class Mapa implements InterfaceJogada {
 	}
 		 	
 
-	@Override
 	public UmaJogada enviaJogada() {
 		UmaJogada jogada = new UmaJogada(jogador.getNome(), procedimento, jogador.getCartasEmJogo());
 		return jogada;

@@ -22,6 +22,7 @@ public class AtorJogador extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private PainelConectar painelConectar;
+	private PainelIniciarPartida painelIniciar;
 	
 	private Mapa mapa;
 	private AtorNetgames rede;
@@ -54,27 +55,51 @@ public class AtorJogador extends JFrame {
 		setLocationRelativeTo(null);
 		this.setVisible(true);
 		setResizable(false);
-		
-		painelInserirNome = new PainelInserirNome();
-		getContentPane().add(painelInserirNome);
-		actionListenerBotaoContinuarNome();
-		
 		rede = new AtorNetgames(this);
+		painelConectar = new PainelConectar();
+		getContentPane().add(painelConectar);
+		actionListenerBotaoConectar();
+		
+		
 	}
 	
 	public void actionListenerBotaoConectar(){
-		painelConectar.actionListenerBotaoConectar(new ActionListener() {
+		painelConectar.actionListenerBotaoConectar2(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-// <<<<<<< marcos-netgames
+				painelConectar.setNomeJogador();
+				//pegar daVez
+				nomeUsuario = painelConectar.getNomeJogador();
+				//iniciarNovaPartida(painelConectar.getNomeJogador(), 0);
+				//JanelaTabuleiro janelaTabuleiro = new JanelaTabuleiro(0);
+				
+				//solicita conexao
 				rede.conectar(nomeUsuario, "localhost");
+				painelIniciar = new PainelIniciarPartida();
+				setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				setBounds(100, 100, 505, 336);
+				setLocationRelativeTo(null);
+				painelIniciar.setVisible(true);
+				setResizable(false);
 				getContentPane().removeAll();
-				painelEscolherTrincheira = new PainelEscolherTrincheira();
-				getContentPane().add(painelEscolherTrincheira);
+				getContentPane().add(painelIniciar);
 				revalidate();
 				repaint();
-				actionListenerBotaoContinuarTrincheira();
+				actionListenerBotaoIniciar();
+				//fechaJanelaJogo();
+				
+			}
+		});
+	}
+	
+	public void actionListenerBotaoIniciar(){
+		painelIniciar.actionListenerBotaoConectar(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				iniciarBatalha();
+				JanelaTabuleiro janelaTabuleiro = new JanelaTabuleiro(0);
 				
 			}
 		});
@@ -93,44 +118,6 @@ public class AtorJogador extends JFrame {
 		this.mapa.receberJogada(jogada);
 	}
 	
-	public void actionListenerBotaoContinuarNome(){
-		painelInserirNome.actionListenerBotaoContinuar(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				nomeUsuario = painelInserirNome.getNomeJogador();
-				getContentPane().removeAll();
-				
-				painelConectar = new PainelConectar();
-				getContentPane().add(painelConectar);
-				revalidate();
-				repaint();
-				actionListenerBotaoConectar();
-				
-			}
-		});
-	}
-	
-	public void actionListenerBotaoContinuarTrincheira(){
-		painelEscolherTrincheira.actionListenerBotaoContinuar(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int trincheiraEscolhida = painelEscolherTrincheira.getTrincheiraEscolhida();
-				rede.iniciarPartidaRede();
-				//iniciarNovaPartida(painelInserirNome.getNomeJogador(), trincheiraEscolhida);
-				JanelaTabuleiro janelaTabuleiro = new JanelaTabuleiro(trincheiraEscolhida);
-//=======
-				painelConectar.setNomeJogador();
-				//pegar daVez
-				iniciarNovaPartida(painelConectar.getNomeJogador(), 0);
-				JanelaTabuleiro janelaTabuleiro = new JanelaTabuleiro(0);
-//>>>>>>> master
-				fechaJanelaJogo();
-				
-			}
-		});
-	}
 	
 	private void fechaJanelaJogo(){
 		Component comp = SwingUtilities.getRoot(this);
@@ -147,6 +134,12 @@ public class AtorJogador extends JFrame {
 		//exibirEstado();
 	}
 
+	/*
+	 * esse metodo eh chamado pelo AtorNetgames em ambos os jogadores para configurar
+	 *  uma nova partida. 
+	 *  parametro eh minha vez define se eu comecarei a partida
+	 * 
+	 */
 	public void iniciarPartidaRede(boolean ehMinhaVez) {
 		String nomeJogadorAdversario = rede.obterNomeAdversario();
 		this.mapa = Mapa.getInstance();
@@ -155,11 +148,11 @@ public class AtorJogador extends JFrame {
 			mapa.criaJogador(this.nomeUsuario, true);
 			mapa.criarJogadorAdversario(nomeJogadorAdversario, false);
 		}
-		//mapa.criaJogador(nomeUsuario);
-		//mapa.criarJogadorAdversario(jogadorAdversario);
-		
 	}
 	
+	/*
+	 * solicita ao servidor iniciar uma nova partida
+	 */
 	public void iniciarBatalha() {
 		rede.iniciarPartidaRede();
 	}

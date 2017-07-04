@@ -7,7 +7,7 @@ import javax.swing.JLabel;
 
 import java.awt.event.ActionListener;
 
-public class PainelConectar extends JPanel {
+public class PainelIniciarPartida extends JPanel {
 	
 	private JButton btnConectar;
 	private JTextField textField;
@@ -16,11 +16,11 @@ public class PainelConectar extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PainelConectar() {
+	public PainelIniciarPartida() {
+		super();
 		criaPainel();
 		criaBotaoConectar();
-		criaTextField();
-		criaLabel();
+		
 	}
 
 	private void criaPainel() {
@@ -30,25 +30,13 @@ public class PainelConectar extends JPanel {
 	}
 
 	private void criaBotaoConectar() {
-		btnConectar = new JButton("Conectar");
+		btnConectar = new JButton("Batalha");
 		btnConectar.setBounds(161, 161, 165, 25);
 		add(btnConectar);
 	}
 	
-	private void criaTextField() {
-		textField = new JTextField();
-		textField.setBounds(161, 129, 165, 22);
-		add(textField);
-		textField.setColumns(10);
-	}
-
-	private void criaLabel() {
-		JLabel lblNomeJogador = new JLabel("Nome jogador");
-		lblNomeJogador.setBounds(161, 100, 97, 16);
-		add(lblNomeJogador);
-	}
 	
-	public void actionListenerBotaoConectar2(ActionListener actionListener){
+	public void actionListenerBotaoConectar(ActionListener actionListener){
 		btnConectar.addActionListener(actionListener);
 	}
 	

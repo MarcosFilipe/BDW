@@ -9,11 +9,21 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+//<<<<<<< marcos-netgames
+import javax.swing.JOptionPane;
+
+import java.awt.SystemColor;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+//=======
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JProgressBar;
 
 import modelo.Torre;
+//>>>>>>> master
 
 public class PainelJogoExecucao extends JPanel {
 	
@@ -23,15 +33,18 @@ public class PainelJogoExecucao extends JPanel {
 	private ImageIcon imagemTorre3;
 	private JButton botaoDesconectar;
 	private JButton botaoEncerrarTurno;
+	private JLabel labelFundo;
 
 	/**
 	 * Create the panel.
 	 */
 	public PainelJogoExecucao(int trincheiraEscolhida) {
 		this.setLayout(null);
-		this.setSize(602, 802);
+		this.setSize(602, 784);
 		this.setLocation(0, 0);
 		
+//<<<<<<< marcos-netgames
+//=======
 		if(trincheiraEscolhida == 0){
 			planoDeFundo = new ImageIcon("resources" + File.separator + "tabuleiro1.jpeg");
 			imagemTorre1 = new ImageIcon("resources" + File.separator + "torreP1.jpg");
@@ -47,10 +60,33 @@ public class PainelJogoExecucao extends JPanel {
 		botaoDesconectar = new JButton("Desconectar");
 		botaoDesconectar.setBounds(389, 625, 112, 25);
 		add(botaoDesconectar);
+//>>>>>>> master
 		
-		botaoEncerrarTurno = new JButton("Encerrar Turno");
-		botaoEncerrarTurno.setBounds(251, 625, 126, 25);
-		add(botaoEncerrarTurno);
+		labelFundo = new JLabel();
+		labelFundo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				JOptionPane.showMessageDialog(null, "funfou :D");
+			}
+		});
+		labelFundo.setBounds(391, 600, 102, 31);
+		add(labelFundo);
+		
+		JLabel labelDesconectar = new JLabel("");
+		labelDesconectar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+			}
+		});
+		labelDesconectar.setBackground(new Color(255, 255, 255));
+		labelDesconectar.setIcon(new ImageIcon("C:\\Users\\filip\\Desktop\\BDW IMAGES\\tabuleiro.jpeg"));
+		labelDesconectar.setBounds(0, 0, 602, 763);
+		add(labelDesconectar);
+		
+		JLabel label = new JLabel("");
+		label.setBounds(271, 600, 92, 31);
+		add(label);
 		
 		JButton botaoCarta0 = new JButton("");
 		botaoCarta0.setBounds(484, 668, 64, 87);

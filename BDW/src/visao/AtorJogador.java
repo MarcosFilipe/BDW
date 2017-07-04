@@ -7,10 +7,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
-import modelo.AtorNetGames;
 import modelo.Mapa;
+import modelo.UmaJogada;
+import rede.AtorNetgames;
 
 
 public class AtorJogador extends JFrame {
@@ -24,7 +26,7 @@ public class AtorJogador extends JFrame {
 	private PainelEscolherTrincheira painelEscolherTrincheira;
 	
 	private Mapa mapa;
-	private AtorNetGames rede;
+	private AtorNetgames rede;
 	private String nomeUsuario;
 
 	/**
@@ -55,9 +57,11 @@ public class AtorJogador extends JFrame {
 		this.setVisible(true);
 		setResizable(false);
 		
-		painelConectar = new PainelConectar();
-		getContentPane().add(painelConectar);
-		actionListenerBotaoConectar();
+		painelInserirNome = new PainelInserirNome();
+		getContentPane().add(painelInserirNome);
+		actionListenerBotaoContinuarNome();
+		
+		rede = new AtorNetgames(this);
 	}
 	
 	public void actionListenerBotaoConectar(){
@@ -65,22 +69,7 @@ public class AtorJogador extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				getContentPane().removeAll();
-				painelInserirNome = new PainelInserirNome();
-				getContentPane().add(painelInserirNome);
-				revalidate();
-				repaint();
-				actionListenerBotaoContinuarNome();
-				
-			}
-		});
-	}
-	
-	public void actionListenerBotaoContinuarNome(){
-		painelInserirNome.actionListenerBotaoContinuar(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
+				rede.conectar(nomeUsuario, "localhost");
 				getContentPane().removeAll();
 				painelEscolherTrincheira = new PainelEscolherTrincheira();
 				getContentPane().add(painelEscolherTrincheira);
@@ -92,13 +81,45 @@ public class AtorJogador extends JFrame {
 		});
 	}
 	
+	public void enviarJogada() {
+		if(mapa.ehMinhaVez())
+		rede.enviarJogada(mapa.enviaJogada()); 
+		else {
+			JOptionPane.showMessageDialog(null, "Desculpe, Não é a sua vez!");
+		}
+		
+	}
+	
+	public void receberJogada(UmaJogada jogada) {
+		this.mapa.receberJogada(jogada);
+	}
+	
+	public void actionListenerBotaoContinuarNome(){
+		painelInserirNome.actionListenerBotaoContinuar(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				nomeUsuario = painelInserirNome.getNomeJogador();
+				getContentPane().removeAll();
+				
+				painelConectar = new PainelConectar();
+				getContentPane().add(painelConectar);
+				revalidate();
+				repaint();
+				actionListenerBotaoConectar();
+				
+			}
+		});
+	}
+	
 	public void actionListenerBotaoContinuarTrincheira(){
 		painelEscolherTrincheira.actionListenerBotaoContinuar(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int trincheiraEscolhida = painelEscolherTrincheira.getTrincheiraEscolhida();
-				iniciarNovaPartida(painelInserirNome.getNomeJogador(), trincheiraEscolhida);
+				rede.iniciarPartidaRede();
+				//iniciarNovaPartida(painelInserirNome.getNomeJogador(), trincheiraEscolhida);
 				JanelaTabuleiro janelaTabuleiro = new JanelaTabuleiro(trincheiraEscolhida);
 				fechaJanelaJogo();
 				
@@ -112,14 +133,30 @@ public class AtorJogador extends JFrame {
 	}
 	
 	private void iniciarNovaPartida(String nome, int trincheiraEscolhida) {
-		this.mapa = new Mapa();
-		mapa.criaJogador(nome);
+		//this.mapa = Mapa.getInstance();
 		//! aqui so ta comentado pra funcionar a interface grafica ja que
 		// nao foi implementado a parte do net games
 		
 		//mapa.criarJogadorAdversario(rede.informarAdversario());
 		//mapa.jogadorTurnoInicial();
 		//exibirEstado();
+	}
+
+	public void iniciarPartidaRede(boolean ehMinhaVez) {
+		String nomeJogadorAdversario = rede.obterNomeAdversario();
+		this.mapa = Mapa.getInstance();
+		
+		if(ehMinhaVez) {
+			mapa.criaJogador(this.nomeUsuario, true);
+			mapa.criarJogadorAdversario(nomeJogadorAdversario, false);
+		}
+		//mapa.criaJogador(nomeUsuario);
+		//mapa.criarJogadorAdversario(jogadorAdversario);
+		
+	}
+	
+	public void iniciarBatalha() {
+		rede.iniciarPartidaRede();
 	}
 
 }

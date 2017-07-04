@@ -6,23 +6,29 @@ import visao.AtorJogador;
 public class Mapa implements InterfaceJogada {
 
 	private Torre[] trincheira, trincheiraAdversario;
-	private int tempoTurno;
 	private Carta[] cartasDoJogo;
 	private Jogador jogador, jogadorAdversario;
 	private TimerTurno timer;
 	private boolean turnoEncerrado;
-	private Jogada jogadaRecebida;
+	private UmaJogada jogadaRecebida;
 	private int numTurnos;
 	private int numJogadas;
 	private int procedimento;
+	private static Mapa mapa;
 
-	public Mapa() {
+	private Mapa() {
 		this.trincheira = new Torre[3];
 		this.trincheiraAdversario = new Torre[3];
 		cartasDoJogo = new Carta[8];
 		criaDeckCartasDoJogo();
 		this.numTurnos = 0;
 		this.procedimento = 1;
+	}
+	
+	public static Mapa getInstance() {
+		if(mapa == null)
+			mapa = new Mapa();
+		return mapa;
 	}
 	
 	public void procedimentoDeLance(int procedimento, AtorJogador atorJogador) {
@@ -41,13 +47,6 @@ public class Mapa implements InterfaceJogada {
 			}
 		
 				
-	}
-	
-	public void setTempoTurno(int procedimento) {
-		if(procedimento == 0)
-			this.tempoTurno = 10; // 10 segundos
-		else
-			this.tempoTurno = 20; // 20 segundos
 	}
 
 
@@ -138,7 +137,7 @@ public class Mapa implements InterfaceJogada {
 	 * 
 	 * @param jogada
 	 */
-	public void receberJogada(Jogada jogada) {
+	public void receberJogada(UmaJogada jogada) {
 		this.jogadaRecebida = jogada;
 		int tipoJogada = jogadaRecebida.getTipoJogada();
 		if(tipoJogada == 1){
@@ -149,15 +148,17 @@ public class Mapa implements InterfaceJogada {
 		}
  	}
 
-	public void criaJogador(String nome) {
+	public void criaJogador(String nome, boolean daVez) {
 		jogador = new Jogador(nome);
+		jogador.setDaVez(daVez);
 		for(int i = 0; i < 3; i++){
 			trincheira[i] = new Torre(jogador.getNome());
 		}
 	}
 	
-	public void criarJogadorAdversario(Jogador jogadorAdversario) {
-		this.jogadorAdversario = jogadorAdversario;
+	public void criarJogadorAdversario(String jogadorAdversario,  boolean daVez) {
+		this.jogadorAdversario = new Jogador(jogadorAdversario);
+		this.jogadorAdversario.setDaVez(daVez);
 		for(int i = 0; i < 3; i++){
 			trincheiraAdversario[i] = new Torre(this.jogadorAdversario.getNome());
 		}
@@ -288,8 +289,8 @@ public class Mapa implements InterfaceJogada {
 		 	
 
 	@Override
-	public Jogada enviaJogada() {
-		Jogada jogada = new Jogada(jogador.getNome(), procedimento, jogador.getCartasEmJogo());
+	public UmaJogada enviaJogada() {
+		UmaJogada jogada = new UmaJogada(jogador.getNome(), procedimento, jogador.getCartasEmJogo());
 		return jogada;
 	}
 	
@@ -333,5 +334,14 @@ public class Mapa implements InterfaceJogada {
 			cartasDoJogo[i].setHabilitado(true);
 		}
 	}
+	
+	public boolean ehMinhaVez() {
+		return this.jogador.getDaVez();
+	}
+	
+	public void setEhMinhaVez(boolean daVez) {
+		this.jogador.setDaVez(daVez);
+	}
+	
 		
 }

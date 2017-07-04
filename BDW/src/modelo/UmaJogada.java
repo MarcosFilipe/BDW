@@ -1,11 +1,18 @@
 package modelo;
-public class Jogada {
 
+import br.ufsc.inf.leobr.cliente.Jogada;
+
+public class UmaJogada implements Jogada {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String nomeJogadorResponsavel;
 	private int tipoJogada;
 	private Carta[] carta;
 	
-	public Jogada(String nomeJogadorResponsavel, int tipoJogada, Carta[] carta){
+	public UmaJogada(String nomeJogadorResponsavel, int tipoJogada, Carta[] carta){
 		this.nomeJogadorResponsavel = nomeJogadorResponsavel;
 		this.tipoJogada = tipoJogada;
 		this.carta = carta;

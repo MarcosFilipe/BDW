@@ -94,7 +94,7 @@ public class AtorJogador extends JFrame {
 				getContentPane().add(painelJogoExecucao);
 				revalidate();
 				repaint();
-				//actionListenerBotaoDesconectar();
+				actionListenerBotaoDesconectarJogo();
 			}
 		});
 		
@@ -112,12 +112,13 @@ public class AtorJogador extends JFrame {
 		});
 	}
 	
-	public void actionListenerBotaoDesconectarJogo(){
+	private void actionListenerBotaoDesconectarJogo(){
 		painelJogoExecucao.actionListenerBotaoDesconectar(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				iniciarBatalha();
+				new AtorJogador();
+				fechaJanela();
 			}
 		});
 	}
@@ -160,8 +161,16 @@ public class AtorJogador extends JFrame {
 			mapa.criarJogadorAdversario(nomeJogadorAdversario, true);
 			trincheiraDefinida = 0;
 		}
-		fechaJanela();
-		JanelaTabuleiro janelaTabuleiro = new JanelaTabuleiro(trincheiraDefinida);
+		
+		/*
+		 * tem que chamar todos os metodos de acoes dos botoes do painelJogoExecucao
+		 * alem de setar valores de labels
+		 */
+		getContentPane().removeAll();
+		painelJogoExecucao = new PainelJogoExecucao(0);
+		getContentPane().add(painelJogoExecucao);
+		revalidate();
+		repaint();
 		
 	}
 	

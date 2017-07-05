@@ -26,7 +26,7 @@ public class Mapa implements Jogada {
 		this.trincheiraAdversario = new Torre[3];
 		cartasDoJogo = new Carta[8];
 		criaDeckCartasDoJogo();
-		this.numTurnos = 0;
+		this.numTurnos = 1;
 		this.procedimento = 1;
 	}
 	
@@ -172,8 +172,8 @@ public class Mapa implements Jogada {
 	public void encerrarTurno(int procedimento, int numJogadas) {
 		if(procedimento == 1){
 			jogador.setDaVez(false);
-		}else{
 			numTurnos++;
+		}else{
 			boolean vencedor = calcularDano();
 			if(!vencedor){
 				this.habilitarCarta();
@@ -229,7 +229,7 @@ public class Mapa implements Jogada {
 	}
 		
 	public boolean definirVencedor(){
-		if(numTurnos == 20){
+		if(numTurnos == 10){
 			verificarVencedorTurnoLimite();
 			return true;
 		}else{
@@ -340,6 +340,14 @@ public class Mapa implements Jogada {
 	
 	public void setEhMinhaVez(boolean ehMinhaVez) {
 		this.jogador.setDaVez(ehMinhaVez);
+	}
+	
+	public int getNumTurnos(){
+		return numTurnos;
+	}
+	
+	public int getAntimateria(){
+		return jogador.getAntimateria();
 	}
 	
 		

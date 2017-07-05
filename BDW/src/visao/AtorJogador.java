@@ -78,6 +78,7 @@ public class AtorJogador extends JFrame {
 				rede.conectar(nomeUsuario, "localhost");
 				
 				actionListenerBotaoBatalha();
+				actionListenerBotaoDesconectarMenu();
 			}
 		});
 	}
@@ -87,8 +88,15 @@ public class AtorJogador extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				iniciarBatalha();
-				//actionListenerBotaoDesconectar();
+				//iniciarBatalha();
+				
+				getContentPane().removeAll();
+				painelJogoExecucao = new PainelJogoExecucao(0);
+				getContentPane().add(painelJogoExecucao);
+				revalidate();
+				repaint();
+				painelJogoExecucao.atualizaLabels(mapa.getAntimateria(), mapa.getNumTurnos());
+				painelJogoExecucao.atualizaVidaTorres(mapa.getTrincheira(), mapa.getTrincheiraAdversario());
 			}
 		});
 		
@@ -114,6 +122,24 @@ public class AtorJogador extends JFrame {
 				rede.desconectar();
 				new AtorJogador();
 				fechaJanela();
+			}
+		});
+	}
+	
+	private void actionListenerBotaoEncerrarTurno(){
+		painelJogoExecucao.actionListenerBotaoEncerrarTurno(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				/*
+				 * enviarJogada para adversario
+				 * verificar de quem eh a vez e setar botoes
+				 * 
+				 * encerrarTurno:
+				 * numJogadas
+				 */
+				mapa.encerrarTurno(0);
+				
 			}
 		});
 	}

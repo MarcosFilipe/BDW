@@ -94,12 +94,26 @@ public class AtorJogador extends JFrame {
 		
 	}
 	
-	public void actionListenerBotaoDesconectarJogo(){
+	private void actionListenerBotaoDesconectarMenu(){
+		painelConectar.actionListenerBotaoDesconectar(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new AtorJogador();
+				fechaJanela();
+				
+			}
+		});
+	}
+	
+	private void actionListenerBotaoDesconectarJogo(){
 		painelJogoExecucao.actionListenerBotaoDesconectar(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				rede.desconectar();
+				new AtorJogador();
+				fechaJanela();
 			}
 		});
 	}
@@ -144,6 +158,11 @@ public class AtorJogador extends JFrame {
 			mapa.criarJogadorAdversario(nomeJogadorAdversario, true);
 			trincheiraDefinida = 0;
 		}
+		/*
+		 * tem que chamar todos os metodos de acoes dos botoes do painelJogoExecucao
+		 * alem de setar valores de labels
+		 */
+		getContentPane().removeAll();
 		painelJogoExecucao = new PainelJogoExecucao(trincheiraDefinida);
 		getContentPane().add(painelJogoExecucao);
 		revalidate();

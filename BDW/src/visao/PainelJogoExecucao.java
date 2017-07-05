@@ -265,7 +265,8 @@ public class PainelJogoExecucao extends JPanel {
 	
 	public void atribuirCartaBotao(Carta[] cartasJogador){
 		/*
-		 * verificar atributo habilitado de carta para habilitar ou nao botao
+		 * chamar sempre que adicionar nova carta na mao
+		 * pega imagem da carta e atribui a botao
 		 */
 		this.cartaJogador = cartasJogador;
 		for(int i = 0; i < cartasJogador.length; i++){
@@ -282,11 +283,7 @@ public class PainelJogoExecucao extends JPanel {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					idCarta = posicao;
-					botaoCarta0.setEnabled(false);
-					botaoCarta1.setEnabled(false);
-					botaoCarta2.setEnabled(false);
-					botaoCarta3.setEnabled(false);
-					botaoEncerrarTurno.setEnabled(false);
+					elementosTurnoOponente();
 				}
 			});
 			
@@ -319,7 +316,7 @@ public class PainelJogoExecucao extends JPanel {
 	}
 	
 	public void acaoBotaoTorre(int posicao){
-		cartaJogador[idCarta].setAlvo(posicao);
+		alvo = posicao;
 		botaoCarta0.setEnabled(true);
 		botaoCarta1.setEnabled(true);
 		botaoCarta2.setEnabled(true);

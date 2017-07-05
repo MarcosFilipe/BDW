@@ -41,16 +41,8 @@ public class Mapa implements Jogada {
 	public void procedimentoDeLance(int procedimento, AtorJogador atorJogador) {
 		numJogadas = 0;
 		iniciarTurno(procedimento);
-		turnoEncerrado = false;
 		timer = new TimerTurno(procedimento, this);
 		timer.start();
-		
-		boolean encerrar = false;
-		while(encerrar == false)
-			if(turnoEncerrado) {
-				encerrarTurno(numJogadas);
-			}
-		JOptionPane.showMessageDialog(null, "tempo encerrado");
 		atorJogador.enviarJogada();
 	}
 
@@ -69,10 +61,6 @@ public class Mapa implements Jogada {
 			return false;
 	}
 	
-	public void setTurnoEncerrado(boolean encerrado) {
-		this.turnoEncerrado = encerrado;
-	}
-
 	/**
 	 * 
 	 * @param idCartaSelecionada

@@ -78,17 +78,18 @@ public class Mapa implements Jogada {
 	 * @param idCartaSelecionada
 	 * @param posiEscolhida
 	 */
-	public void invocarCarta(Carta CartaSelecionada) {
+	public void invocarCarta(int idCartaSelecionada, int alvo) {
 		
 			if(jogador.getDaVez()) {
-				//Carta carta = getCartaDeck(idCartaSelecionada);
-				if (!CartaSelecionada.getHabilitado()) {
+				Carta carta = getCartaDeck(idCartaSelecionada);
+				if (!carta.getHabilitado()) {
 					//alerta falha
 				} else
-					if (verificaAntimateria(CartaSelecionada)) {
+					if (verificaAntimateria(carta)) {
 						if(jogador.getCartasEmJogo().length < 5) {
-							addCartaCampo(CartaSelecionada);
-							jogador.decrementarAntimateria(CartaSelecionada.getAntimateria());
+							carta.setAlvo(alvo);
+							addCartaCampo(carta);
+							jogador.decrementarAntimateria(carta.getAntimateria());
 							numJogadas++;
 						}
 					}
@@ -335,7 +336,6 @@ public class Mapa implements Jogada {
 				this.desabilitarCarta();
 			}
 		}
-		timer.start();
 	}
 	
 	private void desabilitarCarta(){

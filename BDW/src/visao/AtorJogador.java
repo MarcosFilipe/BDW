@@ -88,8 +88,8 @@ public class AtorJogador extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//iniciarBatalha();
-				
+				iniciarBatalha();
+				/*
 				getContentPane().removeAll();
 				painelJogoExecucao = new PainelJogoExecucao(0);
 				getContentPane().add(painelJogoExecucao);
@@ -97,6 +97,7 @@ public class AtorJogador extends JFrame {
 				repaint();
 				painelJogoExecucao.atualizaLabels(mapa.getAntimateria(), mapa.getNumTurnos());
 				painelJogoExecucao.atualizaVidaTorres(mapa.getTrincheira(), mapa.getTrincheiraAdversario());
+				*/
 			}
 		});
 		
@@ -107,6 +108,7 @@ public class AtorJogador extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				rede.desconectar();
 				new AtorJogador();
 				fechaJanela();
 				
@@ -133,7 +135,7 @@ public class AtorJogador extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				/*
 				 * enviarJogada para adversario
-				 * verificar de quem eh a vez e setar botoes
+				 * verificar de quem eh a vez
 				 * 
 				 * encerrarTurno:
 				 * numJogadas
@@ -193,6 +195,8 @@ public class AtorJogador extends JFrame {
 		getContentPane().add(painelJogoExecucao);
 		revalidate();
 		repaint();
+		painelJogoExecucao.atualizaLabels(mapa.getAntimateria(), mapa.getNumTurnos());
+		painelJogoExecucao.atualizaVidaTorres(mapa.getTrincheira(), mapa.getTrincheiraAdversario());
 		
 	}
 	

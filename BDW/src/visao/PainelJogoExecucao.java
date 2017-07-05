@@ -138,6 +138,10 @@ public class PainelJogoExecucao extends JPanel {
 		botaoTorre3.setBounds(157, 427, 50, 95);
 		add(botaoTorre3);
 		
+		JButton btnEncerrarTurno = new JButton("Encerrar Turno");
+		btnEncerrarTurno.setBounds(250, 625, 112, 23);
+		add(btnEncerrarTurno);
+		
 	}
 	
 	public void actionListenerBotaoEncerrarTurno(ActionListener actionListener){
@@ -153,5 +157,4 @@ public class PainelJogoExecucao extends JPanel {
 		Image img = planoDeFundo.getImage();
 		g.drawImage(img, 0, 0, this);
 	}
-	
 }

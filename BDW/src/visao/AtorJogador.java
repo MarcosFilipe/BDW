@@ -27,6 +27,7 @@ public class AtorJogador extends JFrame {
 	private Mapa mapa;
 	private AtorNetgames rede;
 	private String nomeUsuario;
+	
 
 	/**
 	 * Launch the application.
@@ -77,7 +78,6 @@ public class AtorJogador extends JFrame {
 				rede.conectar(nomeUsuario, "localhost");
 				
 				actionListenerBotaoBatalha();
-				actionListenerBotaoDesconectarMenu();
 			}
 		});
 	}
@@ -88,28 +88,10 @@ public class AtorJogador extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				iniciarBatalha();
-				
-				getContentPane().removeAll();
-				painelJogoExecucao = new PainelJogoExecucao(0);
-				getContentPane().add(painelJogoExecucao);
-				revalidate();
-				repaint();
 				//actionListenerBotaoDesconectar();
 			}
 		});
 		
-	}
-	
-	private void actionListenerBotaoDesconectarMenu(){
-		painelConectar.actionListenerBotaoDesconectar(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new AtorJogador();
-				fechaJanela();
-				
-			}
-		});
 	}
 	
 	public void actionListenerBotaoDesconectarJogo(){
@@ -117,7 +99,7 @@ public class AtorJogador extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				iniciarBatalha();
+				rede.desconectar();
 			}
 		});
 	}
@@ -132,7 +114,8 @@ public class AtorJogador extends JFrame {
 	}
 	
 	public void receberJogada(UmaJogada jogada) {
-		this.mapa.receberJogada(jogada);
+		this.mapa.receberJogada(jogada, this);
+		
 	}
 	
 	
@@ -155,13 +138,16 @@ public class AtorJogador extends JFrame {
 			mapa.criaJogador(this.nomeUsuario, true);
 			mapa.criarJogadorAdversario(nomeJogadorAdversario, false);
 			trincheiraDefinida = 1;
+			mapa.procedimentoDeLance(1, this);
 		} else {
 			mapa.criaJogador(this.nomeUsuario, false);
 			mapa.criarJogadorAdversario(nomeJogadorAdversario, true);
 			trincheiraDefinida = 0;
 		}
-		fechaJanela();
-		JanelaTabuleiro janelaTabuleiro = new JanelaTabuleiro(trincheiraDefinida);
+		painelJogoExecucao = new PainelJogoExecucao(trincheiraDefinida);
+		getContentPane().add(painelJogoExecucao);
+		revalidate();
+		repaint();
 		
 	}
 	

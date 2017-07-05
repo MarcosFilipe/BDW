@@ -14,6 +14,7 @@ public class Jogador {
 		this.antimateria = 10;
 		this.vencedor = false;
 		this.daVez = false;
+		this.cartasEmJogo = new Carta[5];
 	}
 	
 	public int[] getDeck() {
@@ -78,6 +79,10 @@ public class Jogador {
 	
 	public void addCartaCampo(int posicao, Carta carta) {
 		this.cartasEmJogo[posicao] = carta;
+	}
+	
+	public void limparCartasEmCampo() {
+		this.cartasEmJogo = new Carta[5];
 	}
 
 }

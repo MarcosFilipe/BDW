@@ -184,5 +184,4 @@ public class PainelJogoExecucao extends JPanel {
 		Image img = planoDeFundo.getImage();
 		g.drawImage(img, 0, 0, this);
 	}
-	
 }

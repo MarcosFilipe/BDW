@@ -27,6 +27,7 @@ public class AtorJogador extends JFrame {
 	private Mapa mapa;
 	private AtorNetgames rede;
 	private String nomeUsuario;
+	
 
 	/**
 	 * Launch the application.
@@ -77,7 +78,6 @@ public class AtorJogador extends JFrame {
 				rede.conectar(nomeUsuario, "localhost");
 				
 				actionListenerBotaoBatalha();
-				actionListenerBotaoDesconectarMenu();
 			}
 		});
 	}
@@ -88,13 +88,7 @@ public class AtorJogador extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				iniciarBatalha();
-				
-				getContentPane().removeAll();
-				painelJogoExecucao = new PainelJogoExecucao(0);
-				getContentPane().add(painelJogoExecucao);
-				revalidate();
-				repaint();
-				actionListenerBotaoDesconectarJogo();
+				//actionListenerBotaoDesconectar();
 			}
 		});
 		
@@ -117,6 +111,7 @@ public class AtorJogador extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				rede.desconectar();
 				new AtorJogador();
 				fechaJanela();
 			}
@@ -133,7 +128,8 @@ public class AtorJogador extends JFrame {
 	}
 	
 	public void receberJogada(UmaJogada jogada) {
-		this.mapa.receberJogada(jogada);
+		this.mapa.receberJogada(jogada, this);
+		
 	}
 	
 	
@@ -156,18 +152,18 @@ public class AtorJogador extends JFrame {
 			mapa.criaJogador(this.nomeUsuario, true);
 			mapa.criarJogadorAdversario(nomeJogadorAdversario, false);
 			trincheiraDefinida = 1;
+			mapa.procedimentoDeLance(1, this);
 		} else {
 			mapa.criaJogador(this.nomeUsuario, false);
 			mapa.criarJogadorAdversario(nomeJogadorAdversario, true);
 			trincheiraDefinida = 0;
 		}
-		
 		/*
 		 * tem que chamar todos os metodos de acoes dos botoes do painelJogoExecucao
 		 * alem de setar valores de labels
 		 */
 		getContentPane().removeAll();
-		painelJogoExecucao = new PainelJogoExecucao(0);
+		painelJogoExecucao = new PainelJogoExecucao(trincheiraDefinida);
 		getContentPane().add(painelJogoExecucao);
 		revalidate();
 		repaint();

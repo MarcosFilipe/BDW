@@ -1,6 +1,8 @@
 package modelo;
 import java.util.Random;
 
+import javax.swing.JOptionPane;
+
 import br.ufsc.inf.leobr.cliente.Jogada;
 import visao.AtorJogador;
 
@@ -48,6 +50,8 @@ public class Mapa implements Jogada {
 			if(turnoEncerrado) {
 				encerrarTurno(procedimento, numJogadas);
 			}
+		JOptionPane.showMessageDialog(null, "tempo encerrado");
+		atorJogador.enviarJogada();
 	}
 
 
@@ -138,13 +142,15 @@ public class Mapa implements Jogada {
 	 * 
 	 * @param jogada
 	 */
-	public void receberJogada(UmaJogada jogada) {
+	public void receberJogada(UmaJogada jogada, AtorJogador atorJogador) {
 		this.jogadaRecebida = jogada;
 		int tipoJogada = jogadaRecebida.getTipoJogada();
 		if(tipoJogada == 1){
 			procedimento = 0;
+			mapa.procedimentoDeLance(procedimento, atorJogador);
 		}else{
 			procedimento = 1;
+			mapa.procedimentoDeLance(procedimento, atorJogador);
 		}
  	}
 
@@ -310,6 +316,7 @@ public class Mapa implements Jogada {
 		if(daVez){
 			if(procedimento == 1){
 				jogador.adicionarAntimateria(2);
+				jogador.limparCartasEmCampo();
 				//definir tempo de turno
 			}else{
 				jogador.adicionarAntimateria(1);

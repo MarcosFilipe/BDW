@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
+import modelo.Carta;
 import modelo.Mapa;
 import modelo.UmaJogada;
 import rede.AtorNetgames;
@@ -140,8 +141,135 @@ public class AtorJogador extends JFrame {
 				 * encerrarTurno:
 				 * numJogadas
 				 */
-				mapa.encerrarTurno(0);
+				enviarJogada();
+				mapa.encerrarTurno();
 				
+			}
+		});
+	}
+	
+	private void actCarta0(){
+		painelJogoExecucao.actCarta0(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				painelJogoExecucao.setIdCarta(0);
+				painelJogoExecucao.elementosTurnoOponente();
+				
+			}
+		});
+	}
+	private void actCarta1(){
+		painelJogoExecucao.actCarta1(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				painelJogoExecucao.setIdCarta(1);
+				painelJogoExecucao.elementosTurnoOponente();
+				
+			}
+		});
+	}
+	private void actCarta2(){
+		painelJogoExecucao.actCarta2(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				painelJogoExecucao.setIdCarta(2);
+				painelJogoExecucao.elementosTurnoOponente();
+				
+			}
+		});
+	}
+	private void actCarta3(){
+		painelJogoExecucao.actCarta3(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				painelJogoExecucao.setIdCarta(3);
+				painelJogoExecucao.elementosTurnoOponente();
+				
+			}
+		});
+	}
+
+	private void actTorre1(){
+		painelJogoExecucao.actTorre1(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				painelJogoExecucao.acaoBotaoTorre(0);
+				mapa.invocarCarta(painelJogoExecucao.getIdCarta(), painelJogoExecucao.getAlvo());
+				painelJogoExecucao.atualizaLabels(mapa.getAntimateria(), mapa.getNumTurnos());
+				
+			}
+		});
+	}
+	private void actTorre2(){
+		painelJogoExecucao.actTorre2(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				painelJogoExecucao.acaoBotaoTorre(1);
+				mapa.invocarCarta(painelJogoExecucao.getIdCarta(), painelJogoExecucao.getAlvo());
+				painelJogoExecucao.atualizaLabels(mapa.getAntimateria(), mapa.getNumTurnos());
+				
+			}
+		});
+	}
+	private void actTorre3(){
+		painelJogoExecucao.actTorre3(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				painelJogoExecucao.acaoBotaoTorre(2);
+				mapa.invocarCarta(painelJogoExecucao.getIdCarta(), painelJogoExecucao.getAlvo());
+				painelJogoExecucao.atualizaLabels(mapa.getAntimateria(), mapa.getNumTurnos());
+				
+			}
+		});
+	}
+	private void actTorreA1(){
+		painelJogoExecucao.actTorreA1(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				painelJogoExecucao.acaoBotaoTorre(0);
+				mapa.invocarCarta(painelJogoExecucao.getIdCarta(), painelJogoExecucao.getAlvo());
+				painelJogoExecucao.atualizaLabels(mapa.getAntimateria(), mapa.getNumTurnos());
+				
+			}
+		});
+	}
+	private void actTorreA2(){
+		painelJogoExecucao.actTorreA2(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				painelJogoExecucao.acaoBotaoTorre(1);
+				mapa.invocarCarta(painelJogoExecucao.getIdCarta(), painelJogoExecucao.getAlvo());
+				painelJogoExecucao.atualizaLabels(mapa.getAntimateria(), mapa.getNumTurnos());
+				
+			}
+		});
+	}
+	private void actTorreA3(){
+		painelJogoExecucao.actTorreA3(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				painelJogoExecucao.acaoBotaoTorre(2);
+				mapa.invocarCarta(painelJogoExecucao.getIdCarta(), painelJogoExecucao.getAlvo());
+				painelJogoExecucao.atualizaLabels(mapa.getAntimateria(), mapa.getNumTurnos());
 			}
 		});
 	}
@@ -192,11 +320,15 @@ public class AtorJogador extends JFrame {
 		 */
 		getContentPane().removeAll();
 		painelJogoExecucao = new PainelJogoExecucao(trincheiraDefinida);
+		//painelJogoExecucao.imagemCartaBotao(mapa.getCartasDoJogo());
+		//painelJogoExecucao.criaBotoes();
 		getContentPane().add(painelJogoExecucao);
 		revalidate();
 		repaint();
 		painelJogoExecucao.atualizaLabels(mapa.getAntimateria(), mapa.getNumTurnos());
 		painelJogoExecucao.atualizaVidaTorres(mapa.getTrincheira(), mapa.getTrincheiraAdversario());
+		mapa.criaPrimeirasCartas();
+		setarFuncaoBotao();
 		
 	}
 	
@@ -209,6 +341,39 @@ public class AtorJogador extends JFrame {
 	
 	public void setEhMinhaVez(boolean ehMinhaVez) {
 		mapa.setEhMinhaVez(ehMinhaVez);
+	}
+	
+	private void setarFuncaoBotao(){
+		actionListenerBotaoEncerrarTurno();
+		actionListenerBotaoDesconectarJogo();
+		actCarta0();
+		actCarta1();
+		actCarta3();
+		actCarta2();
+		actTorre1();
+		actTorre2();
+		actTorre3();
+		actTorreA1();
+		actTorreA2();
+		actTorreA3();
+	}
+	
+	private void criaCarta(Carta[] cartasJogador){
+		painelJogoExecucao.imagemCartaBotao(cartasJogador);
+		int id = painelJogoExecucao.getIdCarta();
+		if(id == 0){
+			painelJogoExecucao.criaBtnCarta0();
+		}else{
+			if(id == 1){
+				painelJogoExecucao.criaBtnCarta1();
+			}else{
+				if(id == 2){
+					painelJogoExecucao.criaBtnCarta2();
+				}else{
+					painelJogoExecucao.criaBtnCarta3();
+				}
+			}
+		}
 	}
 
 }

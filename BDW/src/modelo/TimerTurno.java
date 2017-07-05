@@ -27,7 +27,7 @@ public class TimerTurno extends Thread{
 			cont--;
 		}
 		
-		mapa.setTurnoEncerrado(true);
+		mapa.encerrarTurno();
 		
 		
 	}

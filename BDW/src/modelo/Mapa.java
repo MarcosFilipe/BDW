@@ -1,4 +1,5 @@
 package modelo;
+import java.io.File;
 import java.util.Random;
 
 import javax.swing.JOptionPane;
@@ -16,7 +17,6 @@ public class Mapa implements Jogada {
 	private Carta[] cartasDoJogo;
 	private Jogador jogador, jogadorAdversario;
 	private TimerTurno timer;
-	private boolean turnoEncerrado;
 	private UmaJogada jogadaRecebida;
 	private int numTurnos;
 	private int numJogadas;
@@ -41,17 +41,8 @@ public class Mapa implements Jogada {
 	public void procedimentoDeLance(int procedimento, AtorJogador atorJogador) {
 		numJogadas = 0;
 		iniciarTurno(procedimento);
-		turnoEncerrado = false;
 		timer = new TimerTurno(procedimento, this);
 		timer.start();
-		
-		boolean encerrar = false;
-		while(encerrar == false)
-			if(turnoEncerrado) {
-				encerrarTurno(numJogadas);
-			}
-		JOptionPane.showMessageDialog(null, "tempo encerrado");
-		atorJogador.enviarJogada();
 	}
 
 
@@ -69,8 +60,10 @@ public class Mapa implements Jogada {
 			return false;
 	}
 	
-	public void setTurnoEncerrado(boolean encerrado) {
-		this.turnoEncerrado = encerrado;
+	public void criaPrimeirasCartas(){
+		for(int i =0; i < 4; i++){
+			addNovaCartaMao();
+		}
 	}
 
 	/**
@@ -184,7 +177,11 @@ public class Mapa implements Jogada {
 		return cartasDoJogo[id];
 	}
 
-	public void encerrarTurno(int numJogadas) {
+	public Carta[] getCartasDoJogo() {
+		return cartasDoJogo;
+	}
+
+	public void encerrarTurno() {
 		if(procedimento == 1){
 			jogador.setDaVez(false);
 			numTurnos++;
@@ -197,6 +194,7 @@ public class Mapa implements Jogada {
 				}
 			}
 		}
+		timer.stop();
 	}
 		
 	private boolean calcularDano(){
@@ -312,14 +310,14 @@ public class Mapa implements Jogada {
 	}
 	
 	private void criaDeckCartasDoJogo() {
-		cartasDoJogo[0] = new CartaDefesa(9, "Defesa Alta", 0, "", 20);
-		cartasDoJogo[1] = new CartaDefesa(6, "Defesa Media/Alta", 1, "", 15);
-		cartasDoJogo[2] = new CartaDefesa(4, "Defesa Media", 2, "", 10);
-		cartasDoJogo[3] = new CartaDefesa(3, "Defesa Baixa", 3, "", 5);
-		cartasDoJogo[4] = new CartaAtaque(3, "Ataque Medio", 4, "", 6);
-		cartasDoJogo[5] = new CartaAtaque(4, "Ataque Medio/Alto", 5, "", 8);
-		cartasDoJogo[6] = new CartaAtaque(6, "Ataque Alto", 6, "", 10);
-		cartasDoJogo[7] = new CartaAtaque(9, "Ataque Extremo", 7, "", 20);
+		cartasDoJogo[0] = new CartaDefesa(9, "Defesa Alta", 0, "resources" + File.separator + "carta0.jpeg", 20);
+		cartasDoJogo[1] = new CartaDefesa(6, "Defesa Media/Alta", 1, "resources" + File.separator + "carta1.jpeg", 15);
+		cartasDoJogo[2] = new CartaDefesa(4, "Defesa Media", 2, "resources" + File.separator + "carta2.jpeg", 10);
+		cartasDoJogo[3] = new CartaDefesa(3, "Defesa Baixa", 3, "resources" + File.separator + "carta3.jpeg", 5);
+		cartasDoJogo[4] = new CartaAtaque(3, "Ataque Medio", 4, "resources" + File.separator + "carta4.jpeg", 6);
+		cartasDoJogo[5] = new CartaAtaque(4, "Ataque Medio/Alto", 5, "resources" + File.separator + "carta5.jpeg", 8);
+		cartasDoJogo[6] = new CartaAtaque(6, "Ataque Alto", 6, "resources" + File.separator + "carta6.jpeg", 10);
+		cartasDoJogo[7] = new CartaAtaque(9, "Ataque Extremo", 7, "resources" + File.separator + "carta7.jpeg", 20);
 		
 	}
 	

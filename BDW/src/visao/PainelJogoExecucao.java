@@ -2,12 +2,14 @@ package visao;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JButton;
@@ -32,6 +34,7 @@ public class PainelJogoExecucao extends JPanel {
 	private ImageIcon imagemTorreJogador1;
 	private ImageIcon imagemTorreJogador2;
 	private ImageIcon imagemTorreJogador3;
+	private ImageIcon[] imagemCarta;
 	private JButton botaoDesconectar;
 	private JButton botaoEncerrarTurno;
 	private JButton botaoCarta0;
@@ -67,7 +70,7 @@ public class PainelJogoExecucao extends JPanel {
 		this.setLayout(null);
 		this.setSize(602, 784);
 		this.setLocation(0, 0);
-		
+		imagemCarta = new ImageIcon[7];
 		criaImagens(trincheiraEscolhida);
 		criaBotoes();
 		criaListaBotaoCarta();
@@ -75,12 +78,46 @@ public class PainelJogoExecucao extends JPanel {
 		criaListaBotaoTorreJogador();
 		
 		criaLabels();
-		actionListenerListaBotao();
-		actionListenerBotaoTorres();
 		
 	}
-
-	private void criaBotoes() {
+	
+	public void imagemCartaBotao(Carta[] cartasJogador){
+		/*
+		 * chamar sempre que adicionar nova carta na mao
+		 * pega imagem da carta e atribui a botao
+		 */
+		this.cartaJogador = cartasJogador;
+		for(int i = 0; i < cartasJogador.length; i++){
+			ImageIcon imagem = new ImageIcon(this.cartaJogador[i].getImg());
+			imagemCarta[i] = imagem;
+		}
+	}
+	public void criaBtnCarta0(){
+		botaoCarta0 = new JButton("");
+		botaoCarta0.setBounds(484, 668, 64, 87);
+		add(botaoCarta0);
+		listaBotaoCarta.add(0, botaoCarta0);
+	}
+	public void criaBtnCarta1(){
+		botaoCarta1 = new JButton("");
+		botaoCarta1.setBounds(415, 668, 64, 87);
+		add(botaoCarta1);
+		listaBotaoCarta.add(1, botaoCarta1);
+	}
+	public void criaBtnCarta2(){
+		botaoCarta2 = new JButton("");
+		botaoCarta2.setBounds(345, 668, 64, 87);
+		add(botaoCarta2);
+		listaBotaoCarta.add(2, botaoCarta2);
+	}
+	public void criaBtnCarta3(){
+		botaoCarta3 = new JButton("");
+		botaoCarta3.setBounds(275, 668, 64, 87);
+		add(botaoCarta3);
+		listaBotaoCarta.add(3, botaoCarta3);
+	}
+	
+	public void criaBotoes() {
 		botaoDesconectar = new JButton("Desconectar");
 		botaoDesconectar.setBounds(389, 625, 112, 25);
 		add(botaoDesconectar);
@@ -262,57 +299,37 @@ public class PainelJogoExecucao extends JPanel {
 		botaoCarta3.setEnabled(false);
 		botaoEncerrarTurno.setEnabled(false);
 	}
-	
-	public void atribuirCartaBotao(Carta[] cartasJogador){
-		/*
-		 * chamar sempre que adicionar nova carta na mao
-		 * pega imagem da carta e atribui a botao
-		 */
-		this.cartaJogador = cartasJogador;
-		for(int i = 0; i < cartasJogador.length; i++){
-			
-		}
+
+	public void actCarta0(ActionListener actionListener){
+		listaBotaoCarta.get(0).addActionListener(actionListener);
 	}
-	
-	private void actionListenerListaBotao(){
-		for(int i = 0; i < listaBotaoCarta.size(); i++){
-			int posicao = i;
-			
-			listaBotaoCarta.get(i).addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					idCarta = posicao;
-					elementosTurnoOponente();
-				}
-			});
-			
-		}
+	public void actCarta1(ActionListener actionListener){
+		listaBotaoCarta.get(1).addActionListener(actionListener);
 	}
-	
-	private void actionListenerBotaoTorres(){
-		for(int i = 0; i < listaTorreJogador.size(); i++){
-			int posicao = i;
-			listaTorreJogador.get(i).addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					acaoBotaoTorre(posicao);
-					
-				}
-			});
-		}
-		for(int i = 0; i < listaTorreAdversario.size(); i++){
-			int posicao = i;
-			listaTorreAdversario.get(i).addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					acaoBotaoTorre(posicao);
-					
-				}
-			});
-		}
+	public void actCarta2(ActionListener actionListener){
+		listaBotaoCarta.get(2).addActionListener(actionListener);
+	}
+	public void actCarta3(ActionListener actionListener){
+		listaBotaoCarta.get(3).addActionListener(actionListener);
+	}
+
+	public void actTorre1(ActionListener actionListener){
+		listaTorreJogador.get(0).addActionListener(actionListener);
+	}
+	public void actTorre2(ActionListener actionListener){
+		listaTorreJogador.get(1).addActionListener(actionListener);
+	}
+	public void actTorre3(ActionListener actionListener){
+		listaTorreJogador.get(2).addActionListener(actionListener);
+	}
+	public void actTorreA1(ActionListener actionListener){
+		listaTorreJogador.get(0).addActionListener(actionListener);
+	}
+	public void actTorreA2(ActionListener actionListener){
+		listaTorreJogador.get(1).addActionListener(actionListener);
+	}
+	public void actTorreA3(ActionListener actionListener){
+		listaTorreJogador.get(2).addActionListener(actionListener);
 	}
 	
 	public void acaoBotaoTorre(int posicao){
@@ -323,4 +340,17 @@ public class PainelJogoExecucao extends JPanel {
 		botaoCarta3.setEnabled(true);
 		botaoEncerrarTurno.setEnabled(true);
 	}
+	
+	public int getIdCarta() {
+		return idCarta;
+	}
+
+	public int getAlvo() {
+		return alvo;
+	}
+	
+	public void setIdCarta(int idCarta) {
+		this.idCarta = idCarta;
+	}
+	
 }

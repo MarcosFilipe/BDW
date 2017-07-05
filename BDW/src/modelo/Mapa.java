@@ -48,7 +48,7 @@ public class Mapa implements Jogada {
 		boolean encerrar = false;
 		while(encerrar == false)
 			if(turnoEncerrado) {
-				encerrarTurno(procedimento, numJogadas);
+				encerrarTurno(numJogadas);
 			}
 		JOptionPane.showMessageDialog(null, "tempo encerrado");
 		atorJogador.enviarJogada();
@@ -78,17 +78,17 @@ public class Mapa implements Jogada {
 	 * @param idCartaSelecionada
 	 * @param posiEscolhida
 	 */
-	public void invocarCarta(int idCartaSelecionada) {
+	public void invocarCarta(Carta CartaSelecionada) {
 		
 			if(jogador.getDaVez()) {
-				Carta carta = getCartaDeck(idCartaSelecionada);
-				if (!carta.getHabilitado()) {
+				//Carta carta = getCartaDeck(idCartaSelecionada);
+				if (!CartaSelecionada.getHabilitado()) {
 					//alerta falha
 				} else
-					if (verificaAntimateria(carta)) {
+					if (verificaAntimateria(CartaSelecionada)) {
 						if(jogador.getCartasEmJogo().length < 5) {
-							addCartaCampo(carta);
-							jogador.decrementarAntimateria(carta.getAntimateria());
+							addCartaCampo(CartaSelecionada);
+							jogador.decrementarAntimateria(CartaSelecionada.getAntimateria());
 							numJogadas++;
 						}
 					}
@@ -96,6 +96,14 @@ public class Mapa implements Jogada {
 	}
 			
 	
+	public Torre[] getTrincheira() {
+		return trincheira;
+	}
+
+	public Torre[] getTrincheiraAdversario() {
+		return trincheiraAdversario;
+	}
+
 	private void addNovaCartaMao() {
 		/*
 		 * length pega o numero total de posicoes no array
@@ -175,7 +183,7 @@ public class Mapa implements Jogada {
 		return cartasDoJogo[id];
 	}
 
-	public void encerrarTurno(int procedimento, int numJogadas) {
+	public void encerrarTurno(int numJogadas) {
 		if(procedimento == 1){
 			jogador.setDaVez(false);
 			numTurnos++;
@@ -296,6 +304,9 @@ public class Mapa implements Jogada {
 
 	public UmaJogada enviaJogada() {
 		UmaJogada jogada = new UmaJogada(jogador.getNome(), procedimento, jogador.getCartasEmJogo());
+		if(procedimento == 0){
+			procedimento = 1;
+		}
 		return jogada;
 	}
 	

@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
+import modelo.Jogador;
 import modelo.Mapa;
 import modelo.UmaJogada;
 import rede.AtorNetgames;
@@ -99,8 +100,6 @@ public class AtorJogador extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				iniciarBatalha();
-				JanelaTabuleiro janelaTabuleiro = new JanelaTabuleiro(0);
-				
 			}
 		});
 	}
@@ -123,16 +122,6 @@ public class AtorJogador extends JFrame {
 		Component comp = SwingUtilities.getRoot(this);
 		((Window) comp).dispose();
 	}
-	
-	private void iniciarNovaPartida(String nome, int trincheiraEscolhida) {
-		//this.mapa = Mapa.getInstance();
-		//! aqui so ta comentado pra funcionar a interface grafica ja que
-		// nao foi implementado a parte do net games
-		
-		//mapa.criarJogadorAdversario(rede.informarAdversario());
-		//mapa.jogadorTurnoInicial();
-		//exibirEstado();
-	}
 
 	/*
 	 * esse metodo eh chamado pelo AtorNetgames em ambos os jogadores para configurar
@@ -143,11 +132,21 @@ public class AtorJogador extends JFrame {
 	public void iniciarPartidaRede(boolean ehMinhaVez) {
 		String nomeJogadorAdversario = rede.obterNomeAdversario();
 		this.mapa = Mapa.getInstance();
-		
+		int trincheiraDefinida;
 		if(ehMinhaVez) {
 			mapa.criaJogador(this.nomeUsuario, true);
 			mapa.criarJogadorAdversario(nomeJogadorAdversario, false);
+			trincheiraDefinida = 1;
+		} else {
+			mapa.criaJogador(this.nomeUsuario, false);
+			mapa.criarJogadorAdversario(nomeJogadorAdversario, true);
+			trincheiraDefinida = 0;
 		}
+		fechaJanelaJogo();
+		
+		
+		JanelaTabuleiro janelaTabuleiro = new JanelaTabuleiro(trincheiraDefinida);
+		
 	}
 	
 	/*
@@ -155,6 +154,10 @@ public class AtorJogador extends JFrame {
 	 */
 	public void iniciarBatalha() {
 		rede.iniciarPartidaRede();
+	}
+	
+	public void setEhMinhaVez(boolean ehMinhaVez) {
+		mapa.setEhMinhaVez(ehMinhaVez);
 	}
 
 }

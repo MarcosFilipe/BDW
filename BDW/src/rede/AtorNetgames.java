@@ -61,7 +61,9 @@ public class AtorNetgames implements OuvidorProxy {
 		UmaJogada umaJogada = jogada;
 		try {
 			proxy.enviaJogada(umaJogada);
-			this.ehMinhaVez = false;
+			
+			if(umaJogada.getTipoJogada() == 1)
+				atorJogador.setEhMinhaVez(false);
 		} catch (NaoJogandoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -100,7 +102,8 @@ public class AtorNetgames implements OuvidorProxy {
 	public void receberJogada(Jogada jogada) {
 		UmaJogada lance = (UmaJogada) jogada;
 		atorJogador.receberJogada(lance);
-		ehMinhaVez = true;
+		if(lance.getTipoJogada() == 1)
+			atorJogador.setEhMinhaVez(true);
 
 	}
 

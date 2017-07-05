@@ -33,7 +33,6 @@ public class PainelJogoExecucao extends JPanel {
 	private ImageIcon imagemTorre3;
 	private JButton botaoDesconectar;
 	private JButton botaoEncerrarTurno;
-	private JLabel labelFundo;
 
 	/**
 	 * Create the panel.
@@ -60,33 +59,6 @@ public class PainelJogoExecucao extends JPanel {
 		botaoDesconectar = new JButton("Desconectar");
 		botaoDesconectar.setBounds(389, 625, 112, 25);
 		add(botaoDesconectar);
-//>>>>>>> master
-		
-		labelFundo = new JLabel();
-		labelFundo.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				JOptionPane.showMessageDialog(null, "funfou :D");
-			}
-		});
-		labelFundo.setBounds(391, 600, 102, 31);
-		add(labelFundo);
-		
-		JLabel labelDesconectar = new JLabel("");
-		labelDesconectar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				
-			}
-		});
-		labelDesconectar.setBackground(new Color(255, 255, 255));
-		labelDesconectar.setIcon(new ImageIcon("C:\\Users\\filip\\Desktop\\BDW IMAGES\\tabuleiro.jpeg"));
-		labelDesconectar.setBounds(0, 0, 602, 763);
-		add(labelDesconectar);
-		
-		JLabel label = new JLabel("");
-		label.setBounds(271, 600, 92, 31);
-		add(label);
 		
 		JButton botaoCarta0 = new JButton("");
 		botaoCarta0.setBounds(484, 668, 64, 87);

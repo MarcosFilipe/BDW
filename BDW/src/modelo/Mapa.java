@@ -42,16 +42,12 @@ public class Mapa implements Jogada {
 		turnoEncerrado = false;
 		timer = new TimerTurno(procedimento, this);
 		timer.start();
-		//atorJogador.encerrarTurno.setEnabled(true);
-		//atorJogador.sair.setEnabled(true);
 		
 		boolean encerrar = false;
 		while(encerrar == false)
 			if(turnoEncerrado) {
 				encerrarTurno(procedimento, numJogadas);
 			}
-		
-				
 	}
 
 
@@ -146,7 +142,6 @@ public class Mapa implements Jogada {
 		this.jogadaRecebida = jogada;
 		int tipoJogada = jogadaRecebida.getTipoJogada();
 		if(tipoJogada == 1){
-			jogador.setDaVez(true);
 			procedimento = 0;
 		}else{
 			procedimento = 1;
@@ -343,8 +338,8 @@ public class Mapa implements Jogada {
 		return this.jogador.getDaVez();
 	}
 	
-	public void setEhMinhaVez(boolean daVez) {
-		this.jogador.setDaVez(daVez);
+	public void setEhMinhaVez(boolean ehMinhaVez) {
+		this.jogador.setDaVez(ehMinhaVez);
 	}
 	
 		

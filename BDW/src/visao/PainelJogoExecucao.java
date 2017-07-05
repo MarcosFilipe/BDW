@@ -9,24 +9,16 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-//<<<<<<< marcos-netgames
-import javax.swing.JOptionPane;
-
-import java.awt.SystemColor;
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-//=======
 import java.awt.Font;
-import java.awt.Color;
 import javax.swing.JProgressBar;
-
-import modelo.Torre;
-//>>>>>>> master
 
 public class PainelJogoExecucao extends JPanel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ImageIcon planoDeFundo;
 	private ImageIcon imagemTorre1;
 	private ImageIcon imagemTorre2;
@@ -42,8 +34,6 @@ public class PainelJogoExecucao extends JPanel {
 		this.setSize(602, 784);
 		this.setLocation(0, 0);
 		
-//<<<<<<< marcos-netgames
-//=======
 		if(trincheiraEscolhida == 0){
 			planoDeFundo = new ImageIcon("resources" + File.separator + "tabuleiro1.jpeg");
 			imagemTorre1 = new ImageIcon("resources" + File.separator + "torreP1.jpg");
@@ -124,17 +114,29 @@ public class PainelJogoExecucao extends JPanel {
 		progressTorreAdversario3.setBounds(400, 240, 52, 9);
 		add(progressTorreAdversario3);
 		
-		JButton botaoTorre3 = new JButton("", imagemTorre3);
-		botaoTorre3.setBounds(401, 117, 50, 95);
-		add(botaoTorre3);
+		JButton botaoTorreAdversario3 = new JButton("", imagemTorre3);
+		botaoTorreAdversario3.setBounds(401, 117, 50, 95);
+		add(botaoTorreAdversario3);
 		
-		JButton botaoTorre1 = new JButton("", imagemTorre1);
-		botaoTorre1.setBounds(151, 117, 50, 95);
+		JButton botaoTorreAdversario1 = new JButton("", imagemTorre1);
+		botaoTorreAdversario1.setBounds(151, 117, 50, 95);
+		add(botaoTorreAdversario1);
+		
+		JButton botaoTorreAdversario2 = new JButton("", imagemTorre2);
+		botaoTorreAdversario2.setBounds(270, 110, 70, 80);
+		add(botaoTorreAdversario2);
+		
+		JButton botaoTorre1 = new JButton("");
+		botaoTorre1.setBounds(405, 427, 50, 95);
 		add(botaoTorre1);
 		
-		JButton botaoTorre2 = new JButton("", imagemTorre2);
-		botaoTorre2.setBounds(270, 110, 70, 80);
+		JButton botaoTorre2 = new JButton("");
+		botaoTorre2.setBounds(274, 463, 70, 80);
 		add(botaoTorre2);
+		
+		JButton botaoTorre3 = new JButton("");
+		botaoTorre3.setBounds(157, 427, 50, 95);
+		add(botaoTorre3);
 		
 	}
 	
@@ -151,4 +153,5 @@ public class PainelJogoExecucao extends JPanel {
 		Image img = planoDeFundo.getImage();
 		g.drawImage(img, 0, 0, this);
 	}
+	
 }

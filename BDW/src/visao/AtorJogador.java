@@ -10,7 +10,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
-import modelo.Jogador;
 import modelo.Mapa;
 import modelo.UmaJogada;
 import rede.AtorNetgames;
@@ -23,7 +22,7 @@ public class AtorJogador extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private PainelConectar painelConectar;
-	private PainelIniciarPartida painelIniciar;
+	private PainelJogoExecucao painelJogoExecucao;
 	
 	private Mapa mapa;
 	private AtorNetgames rede;
@@ -51,11 +50,13 @@ public class AtorJogador extends JFrame {
 	public AtorJogador() {
 		
 		this.setTitle("Black Dots War");
+		setLayout(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 505, 336);
-		setLocationRelativeTo(null);
+		setBounds(100, 100, 604, 839);
 		this.setVisible(true);
+		setLocationRelativeTo(null);
 		setResizable(false);
+		
 		rede = new AtorNetgames(this);
 		painelConectar = new PainelConectar();
 		getContentPane().add(painelConectar);
@@ -64,38 +65,55 @@ public class AtorJogador extends JFrame {
 		
 	}
 	
-	public void actionListenerBotaoConectar(){
-		painelConectar.actionListenerBotaoConectar2(new ActionListener() {
+	private void actionListenerBotaoConectar(){
+		painelConectar.actionListenerBotaoConectar(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				painelConectar.setNomeJogador();
 				//pegar daVez
 				nomeUsuario = painelConectar.getNomeJogador();
-				//iniciarNovaPartida(painelConectar.getNomeJogador(), 0);
-				//JanelaTabuleiro janelaTabuleiro = new JanelaTabuleiro(0);
-				
 				//solicita conexao
 				rede.conectar(nomeUsuario, "localhost");
-				painelIniciar = new PainelIniciarPartida();
-				setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				setBounds(100, 100, 505, 336);
-				setLocationRelativeTo(null);
-				painelIniciar.setVisible(true);
-				setResizable(false);
+				
+				actionListenerBotaoBatalha();
+				actionListenerBotaoDesconectarMenu();
+			}
+		});
+	}
+	
+	private void actionListenerBotaoBatalha(){
+		painelConectar.actionListenerBotaoBatalha(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				iniciarBatalha();
+				
 				getContentPane().removeAll();
-				getContentPane().add(painelIniciar);
+				painelJogoExecucao = new PainelJogoExecucao(0);
+				getContentPane().add(painelJogoExecucao);
 				revalidate();
 				repaint();
-				actionListenerBotaoIniciar();
-				//fechaJanelaJogo();
+				//actionListenerBotaoDesconectar();
+			}
+		});
+		
+	}
+	
+	private void actionListenerBotaoDesconectarMenu(){
+		painelConectar.actionListenerBotaoDesconectar(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new AtorJogador();
+				fechaJanela();
 				
 			}
 		});
 	}
 	
-	public void actionListenerBotaoIniciar(){
-		painelIniciar.actionListenerBotaoConectar(new ActionListener() {
+	public void actionListenerBotaoDesconectarJogo(){
+		painelJogoExecucao.actionListenerBotaoDesconectar(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -118,7 +136,7 @@ public class AtorJogador extends JFrame {
 	}
 	
 	
-	private void fechaJanelaJogo(){
+	private void fechaJanela(){
 		Component comp = SwingUtilities.getRoot(this);
 		((Window) comp).dispose();
 	}
@@ -142,9 +160,7 @@ public class AtorJogador extends JFrame {
 			mapa.criarJogadorAdversario(nomeJogadorAdversario, true);
 			trincheiraDefinida = 0;
 		}
-		fechaJanelaJogo();
-		
-		
+		fechaJanela();
 		JanelaTabuleiro janelaTabuleiro = new JanelaTabuleiro(trincheiraDefinida);
 		
 	}
